@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Summary - 챗봇</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            height: 70px;
+            background: linear-gradient(135deg, #1a448c 0%, #9072ad 100%);
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(10px);
+            border-radius: 6px;
+            padding: 0px 4px;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-link.active {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-separator {
+            color: rgba(255, 255, 255, 0.4);
+            user-select: none;
+        }
+
+        /* Header Right Info */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .greeting {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .timer-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .token-timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            color: #ffd700;
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #fff;
+            color: #1a448c;
+            border-color: #fff;
+        }
+
+        /* Layout Container */
+        .app-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 310px;
+            background-color: #f7f7f5;
+            border-right: 2px solid #e5e5e5;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px 16px 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .model-name {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .new-chat-btn {
+            width: 100%;
+            padding: 10px 14px;
+            background: #fff;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            color: #333;
+        }
+
+        .new-chat-btn:hover {
+            background: #f5f5f5;
+            border-color: #b0b0b0;
+        }
+
+        .conversations-list {
+            flex: 1;
+            overflow-y: auto; /* 리스트 넘어가면 스크롤 생김 */
+            padding: 8px;
+            flex: 1 1 0; /* 사이드바 화면 크기 고정 */
+        }
+
+        .conversation-item {
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .conversation-item:hover {
+            background: #ebebeb;
+        }
+
+        .conversation-item.active {
+            background: #e0e0e0;
+        }
+
+        .conversation-title {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .conversation-actions {
+            display: none;
+            gap: 4px;
+        }
+
+        .conversation-item:hover .conversation-actions {
+            display: flex;
+        }
+
+        .action-btn {
+            padding: 4px 6px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #666;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #d0d0d0;
+            color: #333;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            /* 입력창 위치 하단부 고정 및 스크롤 용도 */
+            height: 93vh;
+            flex-direction: column;
+            background-color: #fff;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: scroll;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .messages-wrapper {
+            width: 100%;
+            max-width: 900px; /* 대화 내용 너비 설정 */
+        }
+
+        .message {
+            margin-bottom: 24px;
+            padding: 16px 20px;
+            border-radius: 12px;
+        }
+
+        .message.user {
+            background: #f4f4f4;
+            margin-left: 350px;
+        }
+
+        .message.assistant {
+            background: transparent;
+            border-left: 3px solid #1a448c;
+            padding-left: 17px;
+        }
+
+        .message-role {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        .message.user .message-role {
+            color: #1a448c;
+        }
+
+        .message.assistant .message-role {
+            color: #9072ad;
+        }
+
+        .message-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #1a1a1a;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #666;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* Input Area */
+        .input-area {
+            border-top: 1px solid #e5e5e5;
+            padding: 20px 10px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+        }
+
+        .input-wrapper {
+            width: 100%;
+            height: 100%;
+            max-width: 905px; /* 입력창 너비 설정 */
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1.5px solid #d0d0d0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: none;
+            min-height: 50px;
+            max-height: 150px;
+            line-height: 1.4;
+            transition: all 0.2s;
+        }
+
+        .message-input:focus {
+            outline: none;
+            border-color: #1a448c;
+            box-shadow: 0 0 0 3px rgba(26, 68, 140, 0.1);
+        }
+
+        .send-btn {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #1a448c 0%, #9072ad 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 68, 140, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading Animation */
+        .typing-indicator {
+            display: inline-block;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background: #9072ad;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.7;
+            }
+            30% {
+                transform: translateY(-10px);
+                opacity: 1;
+            }
+        }
+
+        /* Modal for title edit */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #1a448c;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.cancel {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #e0e0e0;
+        }
+
+        .modal-btn.confirm {
+            background: #1a448c;
+            color: #fff;
+        }
+
+        .modal-btn.confirm:hover {
+            background: #153a7a;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/static/esg_summ_logo.png" alt="ESG Summary Logo" class="logo">
+            <nav class="top-nav">
+                <a href="/chatbot" class="nav-link active">Page1</a>
+                <span class="nav-separator">|</span>
+                <a href="/db" class="nav-link">Page2</a>
+                <span class="nav-separator">|</span>
+                <a href="/rag" class="nav-link">Page3</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="greeting">안녕하세요 ! <span id="userNameDisplay">ㅇㅇㅇ</span>님 !</div>
+                <div class="timer-wrapper">
+                    <span class="token-timer" id="tokenTimer">--:--:--</span>
+                    <button class="logout-btn" id="logoutBtn">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">장기 메모리 설정 되지 않은 간단한 챗봇 데모<br/>가장 최근 5턴의 대화 내역을 기반으로 답변 생성 </div>
+                <div class="model-name">LLM 모델: claude-haiku-4-5-20251001</div>
+                <br/>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <span>+</span>
+                    <span>새 채팅</span>
+                </button>
+            </div>
+            <div class="conversations-list" id="conversationsList">
+                <!-- Conversations will be loaded here -->
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="chat-container" id="chatContainer">
+                <div class="messages-wrapper" id="messagesWrapper">
+                    <div class="empty-state">
+                        <h2>새로운 대화를 시작하세요</h2>
+                        <p>메시지를 입력하여 AI와 대화를 시작할 수 있습니다</p>
+                        <p>입력을 전달받으면 자동으로 새 채팅 항목이 생성됩니다</p>
+                    </div>
+                </div>
+            </div>
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea 
+                        class="message-input" 
+                        id="messageInput" 
+                        placeholder="메시지를 입력하세요..." 
+                        rows="1"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">전송</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for editing conversation title -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-title">채팅 제목 수정</div>
+            <input type="text" class="modal-input" id="editTitleInput" placeholder="새 제목을 입력하세요">
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="cancelEditBtn">취소</button>
+                <button class="modal-btn confirm" id="confirmEditBtn">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            // 1. 전역 Ajax 에러 핸들러
+            // 페이지 내 어떤 Ajax 호출이라도 서버에서 401(Unauthorized)을 반환하면 즉시 로그아웃 시킵니다.
+            $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+                if (jqXHR.status === 401) {
+                    console.error("인증 에러 발생: 토큰이 만료되었거나 유효하지 않습니다.");
+                    alert("세션이 만료되었습니다. 다시 로그인해주세요.");
+                    logout();
+                }
+            });
+
+            // 2. 사용자 정보 표시
+            const username = localStorage.getItem('full_name') || localStorage.getItem('username') || '사용자';
+            $('#userNameDisplay').text(username);
+
+            // 3. 토큰 로드 및 만료 시간 추출
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                return logout(); // 토큰 없으면 즉시 퇴출
+            }
+
+            function getTokenExpiration(token) {
+                try {
+                    // JWT 페이로드 디코딩 (Base64Url & UTF-8 호환)
+                    const base64Url = token.split('.')[1];
+                    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                    
+                    const payload = JSON.parse(jsonPayload);
+                    return payload.exp * 1000; // 초 단위를 밀리초로 변환
+                } catch (e) {
+                    console.error("토큰 파싱 실패:", e);
+                    return null;
+                }
+            }
+
+            let tokenEndTime = getTokenExpiration(token);
+            if (!tokenEndTime) {
+                alert("유효하지 않은 접근입니다.");
+                return logout();
+            }
+
+            // 4. 실시간 타이머 업데이트
+            let timerInterval = setInterval(function() {
+                const now = Date.now();
+                const timeLeft = tokenEndTime - now;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    $('#tokenTimer').text('00:00:00');
+                    alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+                    logout();
+                    return;
+                }
+
+                const h = Math.floor(timeLeft / (1000 * 60 * 60));
+                const m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                const formattedTime = 
+                    String(h).padStart(2, '0') + ':' + 
+                    String(m).padStart(2, '0') + ':' + 
+                    String(s).padStart(2, '0');
+
+                $('#tokenTimer').text(formattedTime);
+            }, 1000);
+
+            // 5. 로그아웃 기능
+            $('#logoutBtn').on('click', function() {
+                logout();
+            });
+            function logout() {
+                // 타이머 정지
+                if (timerInterval) clearInterval(timerInterval);
+                // 로컬 스토리지 일괄 정리
+                localStorage.clear();
+                // 로그인 화면으로 이동
+                window.location.href = '/login'; // page0_login.html
+            }
+            // 
+            // 
+            // 챗봇 관련
+            let currentConversationId = null;
+            let editingConversationId = null;
+            let isStreaming = false;
+
+            // 대화 목록 로드
+            async function loadConversations() {
+                try {
+                    const response = await fetch('/chat/conversations', {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        }
+                    });
+
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            logout();
+                            return;
+                        }
+                        throw new Error('대화 목록을 불러오는데 실패했습니다');
+                    }
+
+                    const conversations = await response.json();
+                    renderConversations(conversations);
+                } catch (error) {
+                    console.error('Error loading conversations:', error);
+                }
+            }
+
+            // 대화 목록 렌더링
+            function renderConversations(conversations) {
+                const $list = $('#conversationsList');
+                $list.empty();
+
+                if (conversations.length === 0) {
+                    $list.html('<div style="padding: 20px; text-align: center; color: #999; font-size: 13px;">대화가 없습니다</div>');
+                    return;
+                }
+
+                conversations.forEach(conv => {
+                    const $item = $(`
+                        <div class="conversation-item ${conv.id === currentConversationId ? 'active' : ''}" data-id="${conv.id}">
+                            <div class="conversation-title">${escapeHtml(conv.title)}</div>
+                            <div class="conversation-actions">
+                                <button class="action-btn edit-btn" data-id="${conv.id}">✏️</button>
+                                <button class="action-btn delete-btn" data-id="${conv.id}">🗑️</button>
+                            </div>
+                        </div>
+                    `);
+                    $list.append($item);
+                });
+            }
+
+            // 대화 클릭
+            $(document).on('click', '.conversation-item', function(e) {
+                if ($(e.target).hasClass('action-btn') || $(e.target).closest('.action-btn').length) {
+                    return;
+                }
+                const id = $(this).data('id');
+                loadConversation(id);
+            });
+
+            // 새 채팅 버튼
+            $('#newChatBtn').on('click', async function() {
+                try {
+                    const response = await fetch('/chat/conversations', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        },
+                        body: JSON.stringify({ title: '새 채팅' })
+                    });
+
+                    if (!response.ok) throw new Error('새 채팅 생성 실패');
+
+                    const conversation = await response.json();
+                    currentConversationId = conversation.id;
+                    
+                    await loadConversations();
+                    clearMessages();
+                } catch (error) {
+                    console.error('Error creating conversation:', error);
+                    alert('새 채팅을 생성하는데 실패했습니다');
+                }
+            });
+
+            // 대화 로드
+            async function loadConversation(conversationId) {
+                try {
+                    const response = await fetch(`/chat/conversations/${conversationId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error('대화 로드 실패');
+
+                    const conversation = await response.json();
+                    currentConversationId = conversationId;
+                    
+                    renderMessages(conversation.messages);
+                    
+                    $('.conversation-item').removeClass('active');
+                    $(`.conversation-item[data-id="${conversationId}"]`).addClass('active');
+                } catch (error) {
+                    console.error('Error loading conversation:', error);
+                    alert('대화를 불러오는데 실패했습니다');
+                }
+            }
+
+            // 메시지 렌더링
+            function renderMessages(messages) {
+                const $wrapper = $('#messagesWrapper');
+                $wrapper.empty();
+
+                if (messages.length === 0) {
+                    $wrapper.html(`
+                        <div class="empty-state">
+                            <h2>메시지를 입력하세요</h2>
+                            <p>AI와 대화를 시작할 수 있습니다</p>
+                        </div>
+                    `);
+                    return;
+                }
+
+                messages.forEach(msg => {
+                    addMessageToUI(msg.role, msg.content);
+                });
+
+                scrollToBottom();
+            }
+
+            // 메시지 전송
+            $('#sendBtn').on('click', sendMessage);
+            $('#messageInput').on('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            async function sendMessage() {
+                if (isStreaming) return;
+
+                const content = $('#messageInput').val().trim();
+                if (!content) return;
+
+                // 대화가 없으면 새로 생성
+                if (!currentConversationId) {
+                    await $('#newChatBtn').click();
+                    // 잠시 대기
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+
+                if (!currentConversationId) {
+                    alert('대화를 생성하는데 실패했습니다');
+                    return;
+                }
+
+                // UI에 사용자 메시지 추가
+                addMessageToUI('user', content);
+                $('#messageInput').val('');
+                
+                // 전송 버튼 비활성화
+                isStreaming = true;
+                $('#sendBtn').prop('disabled', true);
+
+                // AI 응답 영역 추가
+                const $assistantMsg = addMessageToUI('assistant', '');
+                const $content = $assistantMsg.find('.message-content');
+                
+                // 타이핑 인디케이터 표시
+                $content.html('<div class="typing-indicator"><span></span><span></span><span></span></div>');
+
+                try {
+                    const response = await fetch(`/chat/conversations/${currentConversationId}/messages`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        },
+                        body: JSON.stringify({ content })
+                    });
+
+                    if (!response.ok) throw new Error('메시지 전송 실패');
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder();
+                    let fullResponse = '';
+
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) break;
+
+                        const chunk = decoder.decode(value);
+                        const lines = chunk.split('\n');
+
+                        for (const line of lines) {
+                            if (line.startsWith('data: ')) {
+                                const data = JSON.parse(line.slice(6));
+                                
+                                if (data.chunk) {
+                                    fullResponse += data.chunk;
+                                    $content.text(fullResponse);
+                                    scrollToBottom();
+                                } else if (data.done) {
+                                    // 완료
+                                } else if (data.error) {
+                                    $content.text('오류: ' + data.error);
+                                }
+                            }
+                        }
+                    }
+
+                    // 대화 목록 새로고침
+                    await loadConversations();
+
+                } catch (error) {
+                    console.error('Error sending message:', error);
+                    $content.text('메시지 전송에 실패했습니다: ' + error.message);
+                } finally {
+                    isStreaming = false;
+                    $('#sendBtn').prop('disabled', false);
+                }
+            }
+
+            // UI에 메시지 추가
+            function addMessageToUI(role, content) {
+                const $wrapper = $('#messagesWrapper');
+                $('.empty-state').remove();
+
+                const $message = $(`
+                    <div class="message ${role}">
+                        <div class="message-role">${role === 'user' ? '사용자' : 'AI 어시스턴트'}</div>
+                        <div class="message-content">${escapeHtml(content)}</div>
+                    </div>
+                `);
+
+                $wrapper.append($message);
+                scrollToBottom();
+                return $message;
+            }
+
+            function clearMessages() {
+                $('#messagesWrapper').html(`
+                    <div class="empty-state">
+                        <h2>메시지를 입력하세요</h2>
+                        <p>AI와 대화를 시작할 수 있습니다</p>
+                    </div>
+                `);
+            }
+
+            function scrollToBottom() {
+                const $container = $('#chatContainer');
+                $container.scrollTop($container[0].scrollHeight);
+            }
+
+            // 제목 수정 버튼
+            $(document).on('click', '.edit-btn', function(e) {
+                e.stopPropagation();
+                editingConversationId = $(this).data('id');
+                const title = $(this).closest('.conversation-item').find('.conversation-title').text();
+                $('#editTitleInput').val(title);
+                $('#editModal').addClass('active');
+            });
+
+            // 모달 닫기
+            $('#cancelEditBtn, #editModal').on('click', function(e) {
+                if (e.target === this) {
+                    $('#editModal').removeClass('active');
+                    editingConversationId = null;
+                }
+            });
+
+            // 제목 수정 확인
+            $('#confirmEditBtn').on('click', async function() {
+                const newTitle = $('#editTitleInput').val().trim();
+                if (!newTitle) return;
+
+                try {
+                    const response = await fetch(`/chat/conversations/${editingConversationId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        },
+                        body: JSON.stringify({ title: newTitle })
+                    });
+
+                    if (!response.ok) throw new Error('제목 수정 실패');
+
+                    await loadConversations();
+                    $('#editModal').removeClass('active');
+                    editingConversationId = null;
+                } catch (error) {
+                    console.error('Error updating title:', error);
+                    alert('제목 수정에 실패했습니다');
+                }
+            });
+
+            // 대화 삭제 버튼
+            $(document).on('click', '.delete-btn', async function(e) {
+                e.stopPropagation();
+                const id = $(this).data('id');
+                
+                if (!confirm('이 대화를 삭제하시겠습니까?')) return;
+
+                try {
+                    const response = await fetch(`/chat/conversations/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+                        }
+                    });
+
+                    if (!response.ok) throw new Error('대화 삭제 실패');
+
+                    if (currentConversationId === id) {
+                        currentConversationId = null;
+                        clearMessages();
+                    }
+
+                    await loadConversations();
+                } catch (error) {
+                    console.error('Error deleting conversation:', error);
+                    alert('대화 삭제에 실패했습니다');
+                }
+            });
+
+            // HTML 이스케이프
+            function escapeHtml(text) {
+                const map = {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                };
+                return text.replace(/[&<>"']/g, m => map[m]);
+            }
+
+            // Textarea 자동 높이 조절
+            $('#messageInput').on('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+            });
+
+            // 초기 로드
+            loadConversations();
+        });
+    </script>
+</body>
+</html>

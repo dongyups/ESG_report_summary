@@ -1,0 +1,24 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 가상환경
+venv/
+.env/
+.venv/
+
+# 환경 변수
+.env
+.env.*
+
+# 미완성
+requirements.txt
+
+# 이미지
+assets/*
+!assets/screenshots/
+assets/screenshots/*
+!assets/screenshots/로그인화면.jpeg
+!assets/screenshots/챗봇화면.jpeg
