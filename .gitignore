@@ -22,3 +22,5 @@ assets/*
 assets/screenshots/*
 !assets/screenshots/로그인화면.jpeg
 !assets/screenshots/챗봇화면.jpeg
+!assets/screenshots/DB화면1.jpeg
+!assets/screenshots/DB화면2.jpeg

@@ -12,6 +12,7 @@ import uvicorn
 from app.db.models.database import lifespan
 from app.modules.auth.api import router as auth_router
 from app.modules.chat.api import router as chat_router
+from app.modules.db.api import router as db_router
 
 # Define FastAPI with lifespan
 app = FastAPI(title="ESG Summary Platform", lifespan=lifespan)
@@ -24,6 +25,7 @@ templates = Jinja2Templates(directory=str(BASE_DIR/"templates"))
 # Include routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(chat_router, prefix="/chat", tags=["chat"])
+app.include_router(db_router, prefix="/db", tags=["db"])
 
 
 ### root_page ###
@@ -58,4 +60,4 @@ async def chatbot_page(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
+    uvicorn.run("main:app", host="127.0.0.1", port=9000, reload=True) # 윈도우 OS 사용을 위한 포트 변경

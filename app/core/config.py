@@ -44,5 +44,5 @@ class Settings(BaseSettings):
     ANTHROPIC_API_KEY: str
     TAVILY_API_KEY: str
 
-
+# 로드할 부분
 settings = Settings()

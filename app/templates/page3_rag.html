@@ -1,3 +1,4 @@
+<!-- page3_rag.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -140,8 +141,9 @@
             width: 310px;
             background-color: #f7f7f5;
             border-right: 2px solid #e5e5e5;
-            padding: 25px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
         }
 
         .sidebar-content {
@@ -153,8 +155,11 @@
         .main-content {
             flex: 1;
             background-color: #fff;
-            padding: 30px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* 스크롤 생성을 위한 높이 제한 */
+            height: 93.5vh;
         }
 
         .content-placeholder {
@@ -203,8 +208,8 @@
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
-            // 1. 전역 Ajax 에러 핸들러
-            // 페이지 내 어떤 Ajax 호출이라도 서버에서 401(Unauthorized)을 반환하면 즉시 로그아웃 시킵니다.
+            // 전역 Ajax 에러 핸들러
+            // 페이지 내 어떤 Ajax 호출이라도 서버에서 401(Unauthorized)을 반환하면 즉시 로그아웃
             $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
                 if (jqXHR.status === 401) {
                     console.error("인증 에러 발생: 토큰이 만료되었거나 유효하지 않습니다.");
@@ -213,11 +218,11 @@
                 }
             });
 
-            // 2. 사용자 정보 표시
+            // 사용자 정보 표시
             const username = localStorage.getItem('full_name') || localStorage.getItem('username') || '사용자';
             $('#userNameDisplay').text(username);
 
-            // 3. 토큰 로드 및 만료 시간 추출
+            // 토큰 로드 및 만료 시간 추출
             const token = localStorage.getItem('access_token');
             if (!token) {
                 return logout(); // 토큰 없으면 즉시 퇴출
@@ -246,7 +251,7 @@
                 return logout();
             }
 
-            // 4. 실시간 타이머 업데이트
+            // 실시간 타이머 업데이트
             let timerInterval = setInterval(function() {
                 const now = Date.now();
                 const timeLeft = tokenEndTime - now;
@@ -271,7 +276,7 @@
                 $('#tokenTimer').text(formattedTime);
             }, 1000);
 
-            // 5. 로그아웃 기능
+            // 로그아웃 기능
             $('#logoutBtn').on('click', function() {
                 logout();
             });
