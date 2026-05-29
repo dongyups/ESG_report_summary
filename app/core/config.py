@@ -16,6 +16,9 @@ class Settings(BaseSettings):
             BASE_DIR / ".env.production",
         ),
         env_file_encoding="utf-8",
+        # 파일이 없어도 에러를 내지 않고 다음 단계(시스템 환경 변수)로 넘어가게 합니다.
+        env_file_ignore_missing=True, 
+        extra="ignore"
     )
     # Application
     APP_NAME: str = "ESG Summary Platform"

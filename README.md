@@ -20,9 +20,7 @@ AWS에 도커를 설치하여 진행
 - port: `22` | username: `ubuntu` | private key 로그인: `.pem`(`.ppk`) 파일 선택
 3. 인스턴스 최초 실행시엔 도커 설치가 우선으로 이미 설치되어 있다면 건너뛰기
 - 설치 가이드라인은 "AWS에_도커설치.docx" 파일 참조
-4. 깃허브 레포지토리를 rsync로 EC2에 파일 동기화하기 위해 Actions -> Deploy -> Run workflow 버튼으로 수동 실행\
-(`.github\workflows\main.yml`을 통해 GitHub Actions가 트리거되려면 main 브랜치에 최초 1회는 push 필요)
-5. 업로드가 확인되었으면 `.env.development` 파일과 같은 위치에 `.env.production` 파일을 아래의 내용을 채워서 업로드 (ex. `/code/app/.env.development`)\
+4. 설치가 완료되었다면, `.env.production` 파일을 아래의 내용을 채워서 `.env.development` 파일과 함께 AWS EC2에 업로드: `/home/ubuntu/env`(env 폴더 만들어서 그안에 업로드)\
 JWT_SECRET_KEY는 임의로 설정한 값, 다른 값으로 설정해도 문제없이 작동
 ``` .env.production
 # JWT관련
@@ -35,8 +33,11 @@ ANTHROPIC_API_KEY=[본인의_클로드_API키]
 # Tavily 검색
 TAVILY_API_KEY=[본인의_타빌리_API키]
 ```
+5. 깃허브 레포지토리를 rsync로 EC2에 파일 동기화하기 위해 Actions -> Deploy -> Run workflow 버튼으로 수동 실행\
+(`.github\workflows\main.yml`을 통해 GitHub Actions가 트리거되려면 main 브랜치에 최초 1회는 push 필요)
 6. MySQL Workbench로 AWS EC2에 접속하여 `/datasets/esg_db.sql` 데이터를 import 하여 로그인하여 진행 (ID: `dd` Password: `dd`)\
-윈도우나 Mac OS를 사용하는 로컬환경에서 간단히 실행하고자 한다면 도커에 MySQL:8.0, Redis:7-alpine, Ollama 컨테이너를 실행한 뒤 `/datasets/esg_db.sql` 데이터를 import하여 진행
+윈도우나 Mac OS를 사용하는 로컬환경에서 간단히 실행하고자 한다면 `.env.production` 파일을 기존 `.env.development` 파일 위치에 저장한 뒤,
+도커에 MySQL:8.0, Redis:7-alpine, Ollama 컨테이너를 실행하여 `/datasets/esg_db.sql` 데이터를 import
 
 
 ### 업데이트 사항

@@ -8,9 +8,10 @@ services:
       - ./db/conf.d:/etc/mysql/conf.d
       - ./db/data:/var/lib/mysql
       - ./db/initdb.d:/docker-entrypoint-initdb.d
+    # AWS 서버의 절대 경로로 지정
     env_file:
-      - .env.development
-      - .env.production
+      - /home/ubuntu/env/.env.development
+      - /home/ubuntu/env/.env.production
     ports:
       - "3306:3306"
     restart: always
@@ -33,9 +34,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    # AWS 서버의 절대 경로로 지정
     env_file:
-      - .env.development
-      - .env.production
+      - /home/ubuntu/env/.env.development
+      - /home/ubuntu/env/.env.production
     ports:
       - "8000:8000"
     depends_on:
