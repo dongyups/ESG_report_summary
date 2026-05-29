@@ -24,6 +24,8 @@ services:
 
   ollama:
     image: ollama/ollama
+    # 이름 고정해서 bge-m3 모델 설치 exec 실행 (.github\workflows\main.yml)
+    container_name: ollama
     networks:
       - esg_local_net
     volumes:
