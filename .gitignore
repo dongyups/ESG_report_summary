@@ -4,7 +4,7 @@ __pycache__/
 *.pyo
 *.pyd
 
-# 가상환경
+# 로컬에 설치된 가상환경
 venv/
 .env/
 .venv/
@@ -12,9 +12,7 @@ venv/
 # 환경 변수
 .env
 .env.*
-
-# 미완성
-requirements.txt
+!.env.development
 
 # 이미지
 assets/*

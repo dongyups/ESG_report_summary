@@ -5,17 +5,21 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
 
 
-DOTENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+# 루트폴더 위치
+BASE_DIR = Path(__file__).resolve().parents[2]
 
 class Settings(BaseSettings):
     # Global
     model_config = SettingsConfigDict(
-        env_file=DOTENV_PATH,
+        env_file=(
+            BASE_DIR / ".env.development",
+            BASE_DIR / ".env.production",
+        ),
         env_file_encoding="utf-8",
     )
     # Application
     APP_NAME: str = "ESG Summary Platform"
-    DEBUG: bool = True
+    # DEBUG: bool = True
 
     # Database
     DB_NAME: str

@@ -142,7 +142,7 @@ async def send_message(
     # 대화 히스토리 로드
     messages = await crud.get_messages(db, conversation_id)
     formatted_messages = service.format_messages_for_api(messages)
-    formatted_messages = formatted_messages[-5:] ### 가장 최신 5개의 기록만 LLM의 입력으로
+    formatted_messages = formatted_messages[-6:] ### 가장 최근 user/assistant 3쌍 기록만 LLM의 입력으로 활용
     
     # AI 응답 생성 (스트리밍)
     async def response_generator():

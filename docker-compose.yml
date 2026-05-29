@@ -1,0 +1,51 @@
+services:
+
+  mysql80:
+    image: mysql:8.0
+    networks:
+      - esg_local_net
+    volumes:
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d
+    env_file:
+      - .env.development
+      - .env.production
+    ports:
+      - "3306:3306"
+    restart: always
+
+  redis7alpine:
+    image: redis:7-alpine
+    networks:
+      - esg_local_net
+    restart: always
+
+  ollama:
+    image: ollama/ollama
+    networks:
+      - esg_local_net
+    volumes:
+      - ./ollama:/root/.ollama
+    restart: always
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.development
+      - .env.production
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql80
+      - redis7alpine
+      - ollama
+    restart: always
+    networks:
+      - esg_local_net
+
+networks:
+  esg_local_net:
+    driver: bridge

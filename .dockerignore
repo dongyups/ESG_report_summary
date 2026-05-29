@@ -1,0 +1,75 @@
+### .dockerignore 범용 마스터 템플릿 ###
+# --- Version Control ---
+.git
+.gitignore
+.github
+.gitlab
+
+# --- Docker ---
+Dockerfile
+docker-compose*
+.dockerignore
+
+# --- Environment Secrets (CRITICAL) ---
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+
+# --- IDEs and Editor Files ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# --- OS Garbage Files ---
+.DS_Store
+Thumbs.db
+
+# --- Dependencies (Node.js, Python, etc.) ---
+node_modules/
+bower_components/
+venv/
+.venv/
+env/
+ENV/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Build Outputs and Caches ---
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+.poetry/
+
+# --- Logs and Documentation ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+docs/
+*.md
+
+# --- 엑스트라 ---
+assets/
+datasets/*
+!datasets/esg_db.sql
+!datasets/SK_하이닉스_성과_및_실적_데이터_사회(S)_2019-2024.xlsx
+!datasets/SK_하이닉스_성과_및_실적_데이터_지배구조(G)_2019-2024.xlsx
+!datasets/SK_하이닉스_성과_및_실적_데이터_환경(E)_2019-2024.xlsx
+preprocess/*
+!preprocess/data_prep_craw.py
+!preprocess/data_prep_excel.py

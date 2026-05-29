@@ -1,0 +1,74 @@
+<!-- page2_db.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Summary - 데이터베이스</title>
+    <!-- style -->
+    <link rel="stylesheet" href="/static/css/page3_db.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <img src="/static/esg_summ_logo.png" alt="ESG Summary Logo" class="logo">
+            <nav class="top-nav">
+                <a href="/chatbot" class="nav-link">Page1</a>
+                <span class="nav-separator">|</span>
+                <a href="/rawdb" class="nav-link">Page2</a>
+                <span class="nav-separator">|</span>
+                <a href="/db" class="nav-link active">Page3</a>
+                <span class="nav-separator">|</span>
+                <a href="/rag" class="nav-link">Page4</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="greeting">안녕하세요 ! <span id="userNameDisplay">ㅇㅇㅇ</span>님 !</div>
+                <div class="timer-wrapper">
+                    <span class="token-timer" id="tokenTimer">--:--:--</span>
+                    <button class="logout-btn" id="logoutBtn">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">
+                    <p>추후 RAG를 위해 추가될 데이터 목록</p>
+                    <p>MySQL 테이블을 같이 확인해 주세요</p>
+                    <p>향후 여러 회사목록 선택창 추가 (Optional)</p>
+                </div>
+            </div>
+            <div class="tables-list" id="tablesList">
+                <!-- Tables will be loaded here -->
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <div class="content-title">데이터프레임 확인</div>
+            </div>
+            <div class="table-info" id="tableInfo" style="display: none;">
+                <div class="table-info-text">
+                    <strong id="currentTableName"></strong> 테이블 
+                    | 총 <strong id="rowCount">0</strong>개 행 
+                    | <strong id="columnCount">0</strong>개 열
+                </div>
+            </div>
+            <div class="table-container" id="tableContainer">
+                <div class="empty-state">
+                    <!-- <div class="empty-state-icon">📊</div> -->
+                    <div class="empty-state-text">테이블을 선택해주세요</div>
+                    <div class="empty-state-subtext">좌측 목록에서 확인하고자 하는 테이블을 클릭하세요</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="/static/js/page3_db.js"></script>
+</body>
+</html>

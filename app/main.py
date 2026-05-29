@@ -46,18 +46,24 @@ async def chatbot_page(request: Request):
     """Chatbot page"""
     return templates.TemplateResponse(request=request, name="page1_chatbot.html")
 
-### page2_db ###
+### page2_rawdb ###
+@app.get("/rawdb", response_class=HTMLResponse)
+async def chatbot_page(request: Request):
+    """MySQL RAW Database page"""
+    return templates.TemplateResponse(request=request, name="page2_rawdb.html")
+
+### page3_db ###
 @app.get("/db", response_class=HTMLResponse)
 async def chatbot_page(request: Request):
     """MySQL Database page"""
-    return templates.TemplateResponse(request=request, name="page2_db.html")
+    return templates.TemplateResponse(request=request, name="page3_db.html")
 
-### page3_rag ###
+### page4_rag ###
 @app.get("/rag", response_class=HTMLResponse)
 async def chatbot_page(request: Request):
     """RAG(Retrieval-Augmented Generation) page"""
-    return templates.TemplateResponse(request=request, name="page3_rag.html")
+    return templates.TemplateResponse(request=request, name="page4_rag.html")
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=9000, reload=True) # 윈도우 OS 사용을 위한 포트 변경
+    uvicorn.run("main:app", host="127.0.0.1", port=9000, reload=True) # --port 번호가 중복되는 경우 원하는 번호로 수정

@@ -1,0 +1,46 @@
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # GitHub 저장소의 소스코드를 CI러너(GitHub Actions 서버)로 다운로드하는 단계
+      # 이 부분이 없으면 러너에 코드가 없어서 이후 비동기적(rscync)로 보낼 파일이 없게된다.
+      - uses: actions/checkout@v4
+
+      # GitHub Secrets에 저장해둔 SSH개인키 (EC2_SSH_KEY)를 CI러너의 SSH에이전트에 등록하는 단계
+      - name: SSH설정
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      # 변경된 파일만 EC2_HOST에 동기화
+      - name: 변경된 파일만 EC2에 동기화(rsync)
+        run: | 
+          rsync -avz --delete \
+            -e "ssh -o StrictHostKeyChecking=no" \
+            --exclude '.git' \
+            --exclude '.venv' \
+            --exclude 'pycache' \
+            --exclude '.pyc' \
+            --exclude '.pyo' \
+            ./ ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/esg_report_summary/
+        # -a (archive) : 파일의 권한, 소유자, 타임스탬프 등 메타데이터를 그대로 유지하면서 복사한다. 하위 디렉토리도 포함.
+        # -v (verbose) : 어떤파일이 전송되는지 log에 출력한다.
+        # -z (compress): 전송 중 데이터를 압축해서 네트워크 트래픽을 줄여준다.
+        # --delete : 로컬에서 삭제한 파일이 있으면 EC2에서도 삭제한다.
+        # -e "ssh -o StrictHostKeyChecking=no" : rsync가 ssh로 연결할 때 호스트 키 확인을 건너뛰도록 한다.
+      
+      # EC2에서 이미지 재빌드 후 실행 + 올라마 볼륨에 이미 있으면 스킵
+      - name: EC2 접속 및 Docker Compose 재빌드
+        run: |
+          ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/ubuntu/esg_report_summary
+            mkdir -p db/
+            docker compose down
+            docker compose up -d --build
+            sleep 7
+            docker exec ollama ollama list | grep -q bge-m3 || docker exec ollama ollama pull bge-m3
+          EOF
