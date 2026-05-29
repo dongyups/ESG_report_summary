@@ -1,4 +1,4 @@
-<!-- ### .dockerignore 범용 마스터 템플릿 ###
+### .dockerignore 범용 마스터 템플릿 ###
 # --- Version Control ---
 .git
 .gitignore
@@ -53,7 +53,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 logs/
-docs/ -->
+docs/
 *.md
 
 # --- Environment Secrets (CRITICAL) ---

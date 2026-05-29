@@ -26,3 +26,4 @@ assets/screenshots/*
 # 데이터
 datasets/*
 !datasets/esg_db.sql
+
