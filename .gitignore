@@ -22,3 +22,7 @@ assets/screenshots/*
 !assets/screenshots/챗봇화면.jpeg
 !assets/screenshots/DB화면1.jpeg
 !assets/screenshots/DB화면2.jpeg
+
+# 데이터
+datasets/*
+!datasets/esg_db.sql

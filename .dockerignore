@@ -1,4 +1,4 @@
-### .dockerignore 범용 마스터 템플릿 ###
+<!-- ### .dockerignore 범용 마스터 템플릿 ###
 # --- Version Control ---
 .git
 .gitignore
@@ -9,13 +9,6 @@
 Dockerfile
 docker-compose*
 .dockerignore
-
-# --- Environment Secrets (CRITICAL) ---
-.env
-.env.*
-*.pem
-*.key
-credentials.json
 
 # --- IDEs and Editor Files ---
 .vscode/
@@ -60,16 +53,17 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 logs/
-docs/
+docs/ -->
 *.md
+
+# --- Environment Secrets (CRITICAL) ---
+.env
+.env.*
+*.pem
+*.key
+credentials.json
 
 # --- 엑스트라 ---
 assets/
-datasets/*
-!datasets/esg_db.sql
-!datasets/SK_하이닉스_성과_및_실적_데이터_사회(S)_2019-2024.xlsx
-!datasets/SK_하이닉스_성과_및_실적_데이터_지배구조(G)_2019-2024.xlsx
-!datasets/SK_하이닉스_성과_및_실적_데이터_환경(E)_2019-2024.xlsx
-preprocess/*
-!preprocess/data_prep_craw.py
-!preprocess/data_prep_excel.py
+datasets/
+preprocess/
