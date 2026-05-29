@@ -27,3 +27,4 @@ assets/screenshots/*
 datasets/*
 !datasets/esg_db.sql
 
+#

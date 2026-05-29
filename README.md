@@ -20,7 +20,7 @@ AWS에 도커를 설치하여 진행
 - port: `22` | username: `ubuntu` | private key 로그인: `.pem`(`.ppk`) 파일 선택
 3. 인스턴스 최초 실행시엔 도커 설치가 우선으로 이미 설치되어 있다면 건너뛰기
 - 설치 가이드라인은 "AWS에_도커설치.docx" 파일 참조
-4. 설치가 완료되었다면, `.env.production` 파일을 아래의 내용을 채워서 `.env.development` 파일과 함께 AWS EC2에 업로드: `/home/ubuntu/env`(env 폴더 만들어서 그안에 업로드)\
+4. 설치가 완료되었다면, `.env.production` 파일을 아래의 내용을 채워서 `.env.development` 파일과 함께 **AWS EC2에 업로드: `/home/ubuntu/env`(env 폴더 만들어서 그안에 업로드)**\
 JWT_SECRET_KEY는 임의로 설정한 값, 다른 값으로 설정해도 문제없이 작동
 ``` .env.production
 # JWT관련
@@ -41,7 +41,7 @@ TAVILY_API_KEY=[본인의_타빌리_API키]
 
 
 ### 업데이트 사항
-2026-04-28: 로그인 및 간단한 챗봇 구현
+**2026-04-28: 로그인 및 간단한 챗봇 구현**
 - 전체적으로 기본 포트번호 사용
 - 회원가입 HTML은 구현하지 않았으므로 docs에서 진행 (Pydantic `users` 테이블)
 - 로그인은 필요시에 회원가입 진행 혹은 아이디,비밀번호 `dd` & `dd` 로 로그인
@@ -56,7 +56,7 @@ TAVILY_API_KEY=[본인의_타빌리_API키]
 </p>
 </br>
 
-2026-05-26: 향후 RAG사용을 위한 DB 전처리 및 시각화 구현
+**2026-05-26: 향후 RAG사용을 위한 DB 전처리 및 시각화 구현**
 - `app/preprocess/data_prep_excel.py` 코드를 통해 `datasets` 폴더의 ESG 엑셀파일 MySQL에 업로드
 - `app/preprocess/data_prep_craw.py` 코드를 통해 SK하이닉스 홈페이지의 뉴스 및 게시글 크롤링, 클리어링 및 MySQL에 업로드\
   `BeautifulSoup` 패키지로는 크롤링이 되지 않아 `Selenium` 으로 크롤링, 다른 버전의 크롤링 코드는 간단히 참고만
@@ -69,7 +69,7 @@ TAVILY_API_KEY=[본인의_타빌리_API키]
 </p>
 
 
-2026-05-30: AWS EC2, Docker 설치 및 연동
+**2026-05-30: AWS EC2, Docker 설치 및 연동**
 - 챗봇에 Tavily 웹검색 기능 추가 및 간단한 마이너 수정
 - `.env` 파일 수정 및 분리: `.env.development`, `.env.production`
 - rawdb를 위한 새로운 html 추가 및 css/js 코드 분리: `app/static/css`, `app/static/js`
@@ -78,12 +78,12 @@ TAVILY_API_KEY=[본인의_타빌리_API키]
 - 자동 배포(CI/CD) 설정 코드 yml파일 작성
 
 
-2026-##-##
+**2026-##-##**
 - ... (upcoming)
 
 
 ### 기술 스택 및 필요 사항
-requirements.txt 참조 (upcoming)
+requirements.txt 참조
 - HTML/CSS
 - jQuery (3.6.4)
 - FastAPI (0.136.1)
