@@ -46,10 +46,25 @@ class Settings(BaseSettings):
     JWT_ACCESS_TOKEN_EXPIRE_HOURS: int
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int
 
-    # LLM, Web-search
-    LLM_MODEL: str
+    # LLM, Web-search, RAG
     ANTHROPIC_API_KEY: str
     TAVILY_API_KEY: str
+    LLM_MODEL: str
+    RAG_LLM_MODEL: str
+
+    # RAG - ChromaDB (로컬 persistent)
+    CHROMA_NAME: str
+    @property # 객체처럼 사용하기 위함
+    def CHROMA_PATH(self) -> str:
+        return str(BASE_DIR / self.CHROMA_NAME)
+
+    # RAG - Ollama (로컬)
+    OLLAMA_HOST: str
+    OLLAMA_PORT: str
+    @property # 객체처럼 사용하기 위함
+    def OLLAMA_BASE_URL(self) -> str:
+        return f"http://{self.OLLAMA_HOST}:{self.OLLAMA_PORT}"    
+    OLLAMA_EMBED_MODEL: str
 
 # 로드할 부분
 settings = Settings()

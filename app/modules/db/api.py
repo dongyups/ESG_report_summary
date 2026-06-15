@@ -17,7 +17,7 @@ class HynixTable(str, Enum):
     sk_hynix_g = "sk_hynix_g"
     sk_hynix_newsroom = "sk_hynix_newsroom"
     sk_hynix_press = "sk_hynix_press"
-    # ... 크롤링된 보고서의 metadata 나중에 추가
+    sk_hynix_report = "sk_hynix_report"
 
 
 @router.get("/tables/{table_name}")
@@ -37,10 +37,8 @@ async def get_table_data(table_name: HynixTable, db: AsyncSession = Depends(get_
         for row in rows:
             row_dict = dict(row)
 
-            # 특정 테이블만 내용만 truncate, url 링크를 통해 모든 내용 확인 가능
-            if table_name in [HynixTable.sk_hynix_newsroom, HynixTable.sk_hynix_press]:
-                # if row_dict.get("title"):
-                #     row_dict["title"] = row_dict["title"][:100] + "..."
+            # 특정 테이블만 내용만 truncate, 뉴스기사는 url 링크를 통해 모든 내용 확인 가능
+            if table_name in [HynixTable.sk_hynix_newsroom, HynixTable.sk_hynix_press, HynixTable.sk_hynix_report]:
                 if row_dict.get("content"):
                     row_dict["content"] = row_dict["content"][:35] + "..."
 

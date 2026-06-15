@@ -28,9 +28,9 @@ jobs:
             --exclude 'assets/' \
             --exclude 'datasets/' \
             --exclude 'preprocess/' \
-            --exclude 'ollama/' \
-            --exclude '.pyc' \
-            --exclude '.pyo' \
+            --exclude '*.md' \
+            --exclude '*.pyc' \
+            --exclude '*.pyo' \
             ./ ubuntu@${{ secrets.EC2_HOST }}:/home/ubuntu/esg_report_summary/
         # -a (archive) : 파일의 권한, 소유자, 타임스탬프 등 메타데이터를 그대로 유지하면서 복사한다. 하위 디렉토리도 포함.
         # -v (verbose) : 어떤파일이 전송되는지 log에 출력한다.

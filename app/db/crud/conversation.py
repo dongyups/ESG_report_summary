@@ -1,4 +1,4 @@
-# 채팅 관련 데이터베이스 CRUD 작업을 처리하는 파일
+# 간단한 챗봇 채팅 관련 데이터베이스 생성/조회/수정/삭제(CRUD) 작업을 처리하는 파일
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, desc

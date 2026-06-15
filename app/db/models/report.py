@@ -1,1 +1,0 @@
-# 보고서(Report) 테이블 구조를 정의하는 SQLAlchemy 모델

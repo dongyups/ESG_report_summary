@@ -88,9 +88,7 @@ $(document).ready(function() {
             { name: 'sk_hynix_g', icon: '🏛️' },
             { name: 'sk_hynix_press', icon: '📢' },
             { name: 'sk_hynix_newsroom', icon: '📰' },
-            // { name: 'sk_hynix_report2024_e', icon: '📋' },
-            // { name: 'sk_hynix_report2024_s', icon: '📋' },
-            // { name: 'sk_hynix_report2024_g', icon: '📋' },
+            { name: 'sk_hynix_report', icon: '📋' },
         ];
         
         const $list = $('#tablesList');

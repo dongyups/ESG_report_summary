@@ -7,12 +7,14 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 from pathlib import Path
 import uvicorn
+import time
 
 # local
 from app.db.models.database import lifespan
 from app.modules.auth.api import router as auth_router
 from app.modules.chat.api import router as chat_router
 from app.modules.db.api import router as db_router
+from app.modules.rag.api import router as rag_router
 
 # Define FastAPI with lifespan
 app = FastAPI(title="ESG Summary Platform", lifespan=lifespan)
@@ -21,11 +23,13 @@ app = FastAPI(title="ESG Summary Platform", lifespan=lifespan)
 BASE_DIR = Path(__file__).resolve().parents[0] # ...\ESGsummary\app
 app.mount("/static", StaticFiles(directory=str(BASE_DIR/"static")), name="static")
 templates = Jinja2Templates(directory=str(BASE_DIR/"templates"))
+templates.env.globals["static_ver"] = int(time.time()) ### css/js 파일 수정 실시간 적용
 
 # Include routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(chat_router, prefix="/chat", tags=["chat"])
 app.include_router(db_router, prefix="/db", tags=["db"])
+app.include_router(rag_router, prefix="/rag",  tags=["rag"])
 
 
 ### root_page ###

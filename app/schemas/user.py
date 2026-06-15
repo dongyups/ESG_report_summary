@@ -9,7 +9,7 @@ class UserCreate(BaseModel):
     # UserBase를 만들고 공통된 변수 사용 가능, Field(...)
     username: str
     email: str # EmailStr
-    password: str
+    password: str # SecretStr
     full_name: Optional[str]
 
 

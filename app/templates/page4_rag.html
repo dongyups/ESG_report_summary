@@ -1,11 +1,10 @@
-<!-- page3_rag.html -->
+<!-- page4_rag.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESG Summary - 검색증강</title>
-    <!-- style -->
+    <title>ESG Summary - RAG 검색증강</title>
     <link rel="stylesheet" href="/static/css/page4_rag.css">
 </head>
 <body>
@@ -34,22 +33,68 @@
     </header>
 
     <div class="app-container">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-content">
-                사이드 바 내용을 채워주세요.
+            <div class="sidebar-header">
+                <div class="sidebar-title">MySQL → ChromaDB(bge-m3) → RAG<br/>extended thinking 기반 응답 생성</div>
+                <div class="model-name">LLM 모델: claude-sonnet-4-5-20250929</div> <!-- id="ragModelName" -->
+                <br>
+
+                <!-- 인덱싱 -->
+                <div class="index-section">
+                    <div class="index-status" id="indexStatus">
+                        <span class="status-row">보도자료: <strong id="pressCount">-</strong>건</span>
+                        <span class="status-row">뉴스룸: <strong id="newsroomCount">-</strong>건</span>
+                        <span class="status-row">보고서 chunk: <strong id="reportCount">-</strong>개</span>
+                        <span class="status-row">데이터 row: <strong id="esgdataCount">-</strong>개</span>
+                    </div>
+                    <button class="index-btn" id="indexBtn">⟳ ChromaDB 인덱싱 실행</button>
+                    <div class="index-progress" id="indexProgress" style="display:none;"></div>
+                </div>
+                <br>
+
+                <button class="new-chat-btn" id="newChatBtn">
+                    <span>+</span><span>새 RAG 채팅</span>
+                </button>
             </div>
+
+            <div class="conversations-list" id="conversationsList"></div>
         </aside>
 
+        <!-- Main -->
         <main class="main-content">
-            <div class="content-placeholder">
-                내용을 채워주세요. (Page 4)
+            <div class="chat-container" id="chatContainer">
+                <div class="messages-wrapper" id="messagesWrapper">
+                    <div class="empty-state">
+                        <h2>RAG 검색증강 채팅</h2>
+                        <p>SK하이닉스 데이터 · 보도자료 · 뉴스룸 · 보고서를 검색하여 답변합니다</p>
+                        <p>인덱싱이 되어있지 않다면 좌측에서 먼저 최초 1회 실행이 필요합니다</p>
+                    </div>
+                </div>
+            </div>
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea class="message-input" id="messageInput"
+                              placeholder="질문을 입력하세요. (Shift+Enter: 줄바꿈)" rows="1"></textarea>
+                    <button class="send-btn" id="sendBtn">전송</button>
+                </div>
             </div>
         </main>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
-    <script>
+    <!-- 제목 수정 모달 -->
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-title">채팅 제목 수정</div>
+            <input type="text" class="modal-input" id="editTitleInput" placeholder="새 제목을 입력하세요">
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" id="cancelEditBtn">취소</button>
+                <button class="modal-btn confirm" id="confirmEditBtn">확인</button>
+            </div>
+        </div>
+    </div>
 
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="/static/js/page4_rag.js"></script>
 </body>
 </html>

@@ -22,9 +22,22 @@ assets/screenshots/*
 !assets/screenshots/챗봇화면.jpeg
 !assets/screenshots/DB화면1.jpeg
 !assets/screenshots/DB화면2.jpeg
+!assets/screenshots/DB확인화면.jpeg
+!assets/screenshots/RAG화면1.jpeg
+
 
 # 데이터
 datasets/*
 !datasets/esg_db.sql
+!datasets/SK_하이닉스_성과_및_실적_데이터_환경(E)_2019-2024.xlsx
+!datasets/SK_하이닉스_성과_및_실적_데이터_사회(S)_2019-2024.xlsx
+!datasets/SK_하이닉스_성과_및_실적_데이터_지배구조(G)_2019-2024.xlsx
+!datasets/지속가능경영_보고서_2023.pdf
+!datasets/지속가능경영_보고서_2024.pdf
+!datasets/content_db.xlsx
 
-#
+# 전처리
+preprocess/chromadb_구조_예시.txt
+preprocess/marker-pdf/*
+!preprocess/marker-pdf/_content_v1.txt
+

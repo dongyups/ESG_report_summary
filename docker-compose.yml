@@ -2,6 +2,8 @@ services:
 
   mysql80:
     image: mysql:8.0
+    # (optional) mysql은 컨테이너 이름 설정 불필요
+    container_name: mysql80
     networks:
       - esg_local_net
     volumes:
@@ -18,13 +20,15 @@ services:
 
   redis7alpine:
     image: redis:7-alpine
+    # (optional) redis는 컨테이너 이름 설정 불필요
+    container_name: redis7alpine
     networks:
       - esg_local_net
     restart: always
 
   ollama:
     image: ollama/ollama
-    # 이름 고정해서 bge-m3 모델 설치 exec 실행 (.github\workflows\main.yml)
+    # (필요) 도커 컨테이너 이름 고정해서 bge-m3 모델 설치 exec 실행 (.github\workflows\main.yml)
     container_name: ollama
     networks:
       - esg_local_net
