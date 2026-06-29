@@ -1,7 +1,7 @@
 # 간단한 챗봇 채팅 관련 데이터베이스 생성/조회/수정/삭제(CRUD) 작업을 처리하는 파일
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, desc
+from sqlalchemy import select, desc, func
 from typing import List, Optional
 # local
 from app.db.models.conversation import Conversation, Message
@@ -21,7 +21,7 @@ async def get_conversations(db: AsyncSession, user_id: int) -> List[Conversation
     result = await db.execute(
         select(Conversation)
         .where(Conversation.user_id == user_id)
-        # .order_by(desc(Conversation.updated_at)) # (최신순)
+        .order_by(desc(Conversation.updated_at)) # (최신순)
     )
     return result.scalars().all()
 
@@ -56,23 +56,20 @@ async def delete_conversation(db: AsyncSession, conversation_id: int, user_id: i
 
 
 async def create_message(db: AsyncSession, conversation_id: int, role: str, content: str) -> Message:
-    """메시지 생성"""
+    """메시지 생성 + 대화 updated_at 갱신"""
     message = Message(conversation_id=conversation_id, role=role, content=content)
     db.add(message)
-    await db.commit()
-    await db.refresh(message)
-    
-    # 대화의 updated_at 갱신
+
+    # 대화의 updated_at 갱신 (conversation을 dirty 처리해야 실제 UPDATE 발생)
     result = await db.execute(
         select(Conversation).where(Conversation.id == conversation_id)
     )
     conversation = result.scalar_one_or_none()
     if conversation:
-        await db.execute(
-            select(Conversation).where(Conversation.id == conversation_id)
-        )
-        await db.commit()
-    
+        conversation.updated_at = func.now()
+
+    await db.commit()
+    await db.refresh(message)
     return message
 
 

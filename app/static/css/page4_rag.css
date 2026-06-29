@@ -140,6 +140,7 @@ body {
     display: flex;
     flex-direction: column;
     overflow: auto;
+    flex-shrink: 0;
 }
 
 .sidebar-header {

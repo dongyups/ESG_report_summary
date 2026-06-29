@@ -55,9 +55,6 @@ $(document).ready(function () {
         } catch (e) { console.error(e); }
     }
 
-    // // RAG LLM 모델명 표시 (status 응답 활용)
-    // $('#ragModelName').text('LLM: claude-sonnet-4-5-20250929');
-
     /* ──────────────────────────────────────
        3. 인덱싱 실행
     ────────────────────────────────────── */
@@ -75,14 +72,20 @@ $(document).ready(function () {
             });
             const reader  = res.body.getReader();
             const decoder = new TextDecoder();
+            let buf = '';
 
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
-                const lines = decoder.decode(value).split('\n');
+                buf += decoder.decode(value, { stream: true });
+
+                const lines = buf.split('\n');
+                buf = lines.pop();                 // 미완성 라인 보존
+
                 for (const line of lines) {
                     if (!line.startsWith('data: ')) continue;
-                    const d = JSON.parse(line.slice(6));
+                    let d;
+                    try { d = JSON.parse(line.slice(6)); } catch { continue; }
                     $prog.append(`<div>${d.message}</div>`);
                     if (d.done) { await loadStatus(); }
                 }
@@ -361,11 +364,12 @@ $(document).ready(function () {
 
             const esgEl  = s.esg_category ? `<span class="source-esg-category">ESG-${escHtml(String(s.esg_category))}</span>` : '';
             const pageEl  = s.page_num ? `<span class="source-page">p.${escHtml(String(s.page_num))}</span>` : '';
-            const chunkEl  = s.chunk_index ? `<span class="source-chunk">c.${escHtml(String(s.chunk_index))}</span>` : '';
+            const articleEl  = s.article_num ? `<span class="source-page">a.${escHtml(String(s.article_num))}</span>` : '';
+            const chunkEl  = s.chunk_index !== '' && s.chunk_index != null ? `<span class="source-chunk">c.${escHtml(String(s.chunk_index))}</span>` : '';
             const dateEl  = s.date ? `<span class="source-date">${escHtml(String(s.date))}</span>` : '';
             return `<div class="source-item">
                       <span class="source-badge ${cls}">${s.type}</span>
-                      ${titleEl}${esgEl}${pageEl}${chunkEl}${dateEl}
+                      ${titleEl}${esgEl}${pageEl}${articleEl}${chunkEl}${dateEl}
                       <span class="source-score">${score}%</span>
                     </div>`;
         }).join('');

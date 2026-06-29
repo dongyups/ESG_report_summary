@@ -1,6 +1,7 @@
 # 챗봇 응답 생성 등 채팅 관련 로직을 처리하는 파일
 
-from anthropic import AsyncAnthropic #, Anthropic
+# from anthropic import AsyncAnthropic
+from anthropic import AsyncAnthropicBedrock
 from tavily import TavilyClient
 import asyncio
 from typing import List, Dict, AsyncGenerator
@@ -8,7 +9,8 @@ from typing import List, Dict, AsyncGenerator
 from app.core.config import settings
 
 # Anthropic, Tavily 클라이언트 초기화
-anthropic_client = AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
+# anthropic_client = AsyncAnthropic(api_key=settings.ANTHROPIC_API_KEY)
+anthropic_client = AsyncAnthropicBedrock(aws_region=settings.AWS_REGION)
 tavily_client = TavilyClient(api_key=settings.TAVILY_API_KEY)
 
 # LLM 검색 툴
@@ -77,7 +79,23 @@ async def generate_chat_response(messages: List[Dict[str, str]]) -> AsyncGenerat
                 break
 
             if final_message.stop_reason == "tool_use":
-                messages.append({"role": "assistant", "content": final_message.content})
+                if settings.BEDROCK_API_KEY:
+                    ### aws bedrock api를 통한 클로드 사용시 ###
+                    # None 값(예: caller=None)을 제외하고, 명시적으로 caller 필드 삭제
+                    content_blocks = []
+                    for block in final_message.content:
+                        # 1. exclude_none=True 옵션으로 값이 None인 필드 1차 제외
+                        block_dict = block.model_dump(exclude_none=True)
+                        
+                        # 2. Bedrock과의 충돌 방지를 위해 tool_use 블록에서 caller 필드 완벽히 제거
+                        if block.type == "tool_use":
+                            block_dict.pop("caller", None)
+                            
+                        content_blocks.append(block_dict)
+                    messages.append({"role": "assistant", "content": content_blocks})
+                else:
+                    ### 일반적인 클로드 api 사용시 ###
+                    messages.append({"role": "assistant", "content": final_message.content})
 
                 tool_results = []
                 for block in final_message.content:

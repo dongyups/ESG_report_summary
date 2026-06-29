@@ -5,12 +5,31 @@ import chromadb
 import requests
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import text
+from langchain_text_splitters.character import RecursiveCharacterTextSplitter
 # local
 from app.core.config import settings
 
 
 ### 수치데이터 제외 인덱싱할 데이터는 2024년도 데이터만 date BETWEEN '2024-01-01' AND '2024-12-31'###
 BATCH = 1  # Ollama 한 번에 처리할 최대 텍스트 수, 최적의 값
+
+# ──────────────────────────────────────────────
+# 텍스트 청킹
+# press:    단신·공식 발표 형식 (700~2,000자) → chunk_size=500
+# newsroom: 심층 분석 기사    (4,000~8,000자) → chunk_size=600
+# separators 우선순위: 문단 > 줄바꿈 > 문장 부호 > 공백
+# ──────────────────────────────────────────────
+_PRESS_SPLITTER = RecursiveCharacterTextSplitter(
+    chunk_size=500,
+    chunk_overlap=100,
+    separators=["\n\n", "\n", ".", " ", ""],
+)
+ 
+_NEWSROOM_SPLITTER = RecursiveCharacterTextSplitter(
+    chunk_size=600,
+    chunk_overlap=100,
+    separators=["\n\n", "\n", ".", " ", ""],
+)
 
 # ──────────────────────────────────────────────
 # 공통 유틸
@@ -58,22 +77,31 @@ async def index_press(db: AsyncSession) -> int:
     col = _get_client().get_or_create_collection("sk_hynix_press", metadata={"hnsw:space": "cosine"})
     total = 0
 
-    for i in range(0, len(rows), BATCH):
-        batch = rows[i : i + BATCH]
-        ids   = [f"press_{r.id}" for r in batch] ### id가 그냥 1,2,3,.. 이어서 다른 데이터와 중복 방지
-        docs  = [r.content for r in batch]
-        metas = [{
-            "date":         int(r.date.strftime("%Y%m%d")) if r.date else 0,
-            "title":        r.title or "",
-            "category":     r.category or "",
-            "hashtag":      r.hashtag or "",
-            "url":          r.url or "",
-            "source_db": "sk_hynix_press",
-        } for r in batch]
+    ### 청킹으로 BATCH 루프 삭제, 추후 변경 가능 ###
+    for row in rows:
+        # 기사 전문 → 청크 분할
+        # 예상: 700자 → 2청크, 2,000자 → 4~5청크, 전체 3건 → 약 10~12청크 → 결과: 11개
+        chunks = _PRESS_SPLITTER.split_text(row.content)
+        if not chunks:
+            continue
 
-        embeds = await asyncio.to_thread(_embed_batch, docs)
-        col.upsert(ids=ids, documents=docs, metadatas=metas, embeddings=embeds)
-        total += len(batch)
+        # press_article1_chunk1
+        chunk_ids   = [f"press_a{row.id}_c{i}" for i in range(len(chunks))]
+        chunk_metas = [{
+            "chunk_id":    f"press_a{row.id}_c{i}",
+            "date":        int(row.date.strftime("%Y%m%d")) if row.date else 0,
+            "title":       row.title or "",
+            "category":    row.category or "",
+            "hashtag":     row.hashtag or "",
+            "url":         row.url or "",
+            "article_num": row.id,
+            "chunk_index": i,
+            "source_db":   "sk_hynix_press",
+        } for i in range(len(chunks))]
+ 
+        embeds = await asyncio.to_thread(_embed_batch, chunks)
+        col.upsert(ids=chunk_ids, documents=chunks, metadatas=chunk_metas, embeddings=embeds)
+        total += len(chunks)
 
     return total
 
@@ -88,25 +116,47 @@ async def index_newsroom(db: AsyncSession) -> int:
     col = _get_client().get_or_create_collection("sk_hynix_newsroom", metadata={"hnsw:space": "cosine"})
     total = 0
 
-    for i in range(0, len(rows), BATCH):
-        batch = rows[i : i + BATCH]
-        ids   = [f"newsroom_{r.id}" for r in batch] ### id가 그냥 1,2,3,.. 이어서 다른 데이터와 중복 방지
-        docs  = [r.content for r in batch]
-        metas = [{
-            "date":         int(r.date.strftime("%Y%m%d")) if r.date else 0,
-            "title":        r.title or "",
-            "category":     r.category or "",
-            "hashtag":      r.hashtag or "",
-            "url":          r.url or "",
-            "source_db": "sk_hynix_newsroom",
-        } for r in batch]
-
-        embeds = await asyncio.to_thread(_embed_batch, docs)
-        col.upsert(ids=ids, documents=docs, metadatas=metas, embeddings=embeds)
-        total += len(batch)
+    ### 청킹으로 BATCH 루프 삭제, 추후 변경 가능 ###
+    for row in rows:
+        # 기사 전문 → 청크 분할
+        # 예상: 4,000자 → 7~8청크, 8,000자 → 15~16청크, 전체 19건 → 약 180~210청크 → 결과: 122개
+        chunks = _NEWSROOM_SPLITTER.split_text(row.content)
+        if not chunks:
+            continue
+        
+        # newsroom_article1_chunk1
+        chunk_ids   = [f"newsroom_a{row.id}_c{i}" for i in range(len(chunks))]
+        chunk_metas = [{
+            "chunk_id":    f"newsroom_a{row.id}_c{i}",
+            "date":        int(row.date.strftime("%Y%m%d")) if row.date else 0,
+            "title":       row.title or "",
+            "category":    row.category or "",
+            "hashtag":     row.hashtag or "",
+            "url":         row.url or "",
+            "article_num": row.id,
+            "chunk_index": i,
+            "source_db":   "sk_hynix_newsroom",
+        } for i in range(len(chunks))]
+ 
+        embeds = await asyncio.to_thread(_embed_batch, chunks)
+        col.upsert(ids=chunk_ids, documents=chunks, metadatas=chunk_metas, embeddings=embeds)
+        total += len(chunks)
 
     return total
 
+
+### RAG 검색 품질 향상을 위해 content에 heading 및 table_title 붙이기 ###
+def _build_report_doc(r) -> str:
+    headings = " > ".join(
+        h for h in [r.heading_level_1, r.heading_level_2, r.heading_level_3] if h
+    )
+    parts = []
+    if headings:
+        parts.append(headings)
+    if r.table_title:
+        parts.append(f"Table: {r.table_title}")
+    prefix = f"[{' | '.join(parts)}]\n" if parts else ""
+    return f"{prefix}{r.content}"
 
 async def index_report(db: AsyncSession) -> int:
     rows = (await db.execute(
@@ -124,8 +174,10 @@ async def index_report(db: AsyncSession) -> int:
     for i in range(0, len(rows), BATCH):
         batch = rows[i : i + BATCH]
         ids = [r.chunk_id for r in batch]
-        docs  = [r.content for r in batch]
+        ### "[섹션 > 대분류 > 중분류 | 테이블명]\n내용내용" 이런 형식으로 저장됨 ###
+        docs  = docs = [_build_report_doc(r) for r in batch] #[r.content for r in batch]
         metas = [{
+            "chunk_id":        r.chunk_id or "", ### 추가
             "company":         r.company or "",
             "report_year":     r.report_year or "",
             "source":          r.source or "",
@@ -183,6 +235,7 @@ async def index_esgdata(db: AsyncSession) -> int:
         ]
         metas = [
             {
+                "chunk_id":         f"sk_hynix_{r.esg_category}_{r.id}",
                 "company":          r.company or "",
                 "site":             r.site or "",
                 "area":             r.area or "",

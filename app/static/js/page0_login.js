@@ -42,8 +42,8 @@ $(document).ready(function() {
                 localStorage.setItem('username', response.user.username);
                 localStorage.setItem('full_name', response.user.full_name || response.user.username);
                 
-                // Redirect to page1 (chatbot)
-                window.location.href = '/chatbot';
+                // Redirect to page1 (chatbot) / page2 (rawdb)
+                window.location.href = '/rawdb';
             },
             error: function(xhr) {
                 // Re-enable button

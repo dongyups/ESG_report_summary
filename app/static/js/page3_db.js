@@ -83,12 +83,12 @@ $(document).ready(function() {
     // 테이블 목록 로드
     function loadTables() {
         const tables = [
-            { name: 'sk_hynix_e', icon: '🌍' },
-            { name: 'sk_hynix_s', icon: '👥' },
-            { name: 'sk_hynix_g', icon: '🏛️' },
-            { name: 'sk_hynix_press', icon: '📢' },
-            { name: 'sk_hynix_newsroom', icon: '📰' },
-            { name: 'sk_hynix_report', icon: '📋' },
+            { name: 'sk_hynix_e', icon: '🌍', htmlName: 'E (환경) 데이터' },
+            { name: 'sk_hynix_s', icon: '👥', htmlName: 'S (사회) 데이터' },
+            { name: 'sk_hynix_g', icon: '🏛️', htmlName: 'G (경제/거버넌스) 데이터' },
+            { name: 'sk_hynix_press', icon: '📢', htmlName: 'ESG관련 보도자료 목록' },
+            { name: 'sk_hynix_newsroom', icon: '📰', htmlName: 'ESG관련 뉴스기사 목록' },
+            { name: 'sk_hynix_report', icon: '📋', htmlName: 'SK하이닉스 2024년 ESG보고서' },
         ];
         
         const $list = $('#tablesList');
@@ -98,7 +98,7 @@ $(document).ready(function() {
             const $item = $(`
                 <div class="table-item" data-table="${table.name}">
                     <span class="table-icon">${table.icon}</span>
-                    <span class="table-name">${table.name}</span>
+                    <span class="table-name">${table.htmlName}</span>
                 </div>
             `);
             $list.append($item);

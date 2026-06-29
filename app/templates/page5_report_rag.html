@@ -1,0 +1,175 @@
+<!-- page5_report_rag.html — REPORT_GRAPH Map-Reduce 자동 ESG 보고서 생성 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Summary - 보고서 자동 생성</title>
+    <link rel="stylesheet" href="/static/css/page5_report_rag.css">
+</head>
+<body>
+
+    <!-- ── 헤더 ── -->
+    <header class="header">
+        <div class="header-left">
+            <img src="/static/esg_summ_logo.png" alt="ESG Summary Logo" class="logo">
+            <nav class="top-nav">
+                <a href="/chatbot" class="nav-link">Page1</a>
+                <span class="nav-separator">|</span>
+                <a href="/rawdb" class="nav-link">Page2</a>
+                <span class="nav-separator">|</span>
+                <a href="/db" class="nav-link">Page3</a>
+                <span class="nav-separator">|</span>
+                <a href="/rag" class="nav-link">Page4</a>
+                <span class="nav-separator">|</span>
+                <a href="/report-gen" class="nav-link active">Page5</a>
+                <span class="nav-separator">|</span>
+                <a href="/section" class="nav-link">Page6</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="greeting">안녕하세요 ! <span id="userNameDisplay">ㅇㅇㅇ</span>님 !</div>
+                <div class="timer-wrapper">
+                    <span class="token-timer" id="tokenTimer">--:--:--</span>
+                    <button class="logout-btn" id="logoutBtn">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+
+        <!-- ── 사이드바 ── -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">REPORT_GRAPH — Map-Reduce<br/>plan → 섹션생성(병렬) → synthesize → 완료</div>
+                <div class="model-name">Main: sonnet-4-6 / Grade: haiku-4-5</div>
+                <br>
+
+                <!-- ChromaDB 상태 -->
+                <div class="index-section">
+                    <div class="index-status" id="indexStatus">
+                        <span class="status-row">보도자료 chunk: <strong id="pressCount">-</strong>건</span>
+                        <span class="status-row">뉴스룸 chunk: <strong id="newsroomCount">-</strong>건</span>
+                        <span class="status-row">보고서 chunk: <strong id="reportCount">-</strong>건</span>
+                        <span class="status-row">데이터 row: <strong id="esgdataCount">-</strong>건</span>
+                    </div>
+                    <button class="index-btn" id="indexBtn">ChromaDB 인덱싱 ⟳</button>
+                    <div class="index-progress" id="indexProgress" style="display:none;"></div>
+                </div>
+                <br>
+
+                <!-- 보고서 생성 폼 -->
+                <div class="report-form">
+                    <div class="form-group">
+                        <label class="form-label">연도</label>
+                        <select class="form-select" id="targetYear">
+                            <option value="2025">2025</option>
+                            <!-- <option value="2024">2024</option> -->
+                            <!-- <option value="2023">2023</option> -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">작성 범위</label>
+                        <select class="form-select" id="scopeSelect">
+                            <option value="전체">전체 (I + E + S + G)</option>
+                            <option value="I">I — 도입·개요</option>
+                            <option value="E">E — 환경</option>
+                            <option value="S">S — 사회</option>
+                            <option value="G">G — 지배구조</option>
+                        </select>
+                    </div>
+                    <button class="generate-btn" id="generateBtn">
+                        <span>보고서 자동 생성</span><span>🚀</span>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ── 메인 영역 ── -->
+        <main class="main-content">
+
+            <!-- 진행 단계 바 (4단계) -->
+            <div class="progress-bar" id="progressBar" style="display:none;">
+                <div class="progress-step" id="pStep1">
+                    <div class="step-circle">📋</div>
+                    <div class="step-label">섹션 계획</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep2">
+                    <div class="step-circle">⚙️</div>
+                    <div class="step-label" id="pStep2Label">섹션 생성</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep3">
+                    <div class="step-circle">🔗</div>
+                    <div class="step-label">최종 합성</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep4">
+                    <div class="step-circle">✅</div>
+                    <div class="step-label">완료</div>
+                </div>
+            </div>
+
+            <!-- 스크롤 영역 -->
+            <div class="report-scroll-area">
+
+                <!-- 초기 안내 -->
+                <div class="empty-state" id="emptyState">
+                    <h2>ESG 보고서 자동 생성</h2>
+                    <p>ChromaDB에 인덱싱된 데이터를 기반으로 ESG 보고서 초안을 자동 작성합니다</p>
+                    <p style="font-size:13px;margin-top:4px;">섹션 계획 후 병렬 처리로 각 섹션 초안을 생성하고 최종 합성합니다</p>
+                    <div class="flow-diagram">
+                        <div class="flow-step">📋<br>섹션 계획</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">⚙️ ⚙️ ⚙️<br>병렬 초안 생성</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">🔗<br>최종 합성</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">✅<br>완료</div>
+                    </div>
+                </div>
+
+                <!-- 섹션 카드 패널 (plan 이벤트 후 표시) -->
+                <div class="sections-panel" id="sectionsPanel" style="display:none;">
+                    <div class="sections-panel-header" id="sectionsPanelHeader">
+                        <span class="sections-panel-title">📝 섹션 생성 현황</span>
+                        <span class="sections-counter" id="sectionsCounter">0 / 0 완료</span>
+                        <span class="sections-toggle-arrow" id="sectionsToggleArrow">▼</span>
+                    </div>
+                    <div class="sections-grid" id="sectionsGrid"></div>
+                </div>
+
+                <!-- 오류 패널 -->
+                <div class="error-panel" id="errorPanel" style="display:none;">
+                    <span class="error-icon">⚠️</span>
+                    <span class="error-message" id="errorMessage"></span>
+                </div>
+
+                <!-- 최종 보고서 패널 (synthesis 이벤트 후 표시) -->
+                <div class="final-report-panel" id="finalReportPanel" style="display:none;">
+                    <div class="final-report-header">
+                        <div class="final-report-title">
+                            <span class="final-report-icon">📄</span>
+                            <span id="finalReportLabel">최종 ESG 보고서</span>
+                        </div>
+                        <div class="final-report-actions">
+                            <span class="synthesis-badge" id="synthesisBadge">합성 중...</span>
+                            <button class="copy-report-btn" id="copyReportBtn" disabled>📋 전체 복사</button>
+                        </div>
+                    </div>
+                    <div class="final-report-content" id="finalReportContent"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+            crossorigin="anonymous"></script>
+    <script src="/static/js/page5_report_rag.js"></script>
+</body>
+</html>

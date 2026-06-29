@@ -27,22 +27,22 @@ async def trigger_index(db: AsyncSession = Depends(get_db), _: User = Depends(ge
 
         yield _sse({"message": "보도자료 인덱싱 중...", "done": False})
         press = await indexer.index_press(db)
-        yield _sse({"message": f"보도자료 {press}건 완료", "done": False})
+        yield _sse({"message": f"보도자료 chunk {press}건 완료", "done": False})
 
         yield _sse({"message": "뉴스룸 인덱싱 중...", "done": False})
         newsroom = await indexer.index_newsroom(db)
-        yield _sse({"message": f"뉴스룸 {newsroom}건 완료", "done": False})
+        yield _sse({"message": f"뉴스룸 chunk {newsroom}건 완료", "done": False})
 
         yield _sse({"message": "보고서 인덱싱 중...", "done": False})
         report = await indexer.index_report(db)
-        yield _sse({"message": f"보고서 chunk {report}개 완료", "done": False})
+        yield _sse({"message": f"보고서 chunk {report}건 완료", "done": False})
 
         yield _sse({"message": "데이터 인덱싱 중...", "done": False})
         esgdata = await indexer.index_esgdata(db)
-        yield _sse({"message": f"데이터 row {esgdata}개 완료", "done": False})
+        yield _sse({"message": f"데이터 row {esgdata}건 완료", "done": False})
 
         yield _sse({
-            "message": f"인덱싱 완료 — 보도자료 {press}건 / 뉴스룸 {newsroom}건 / 보고서 chunk {report}개 / 데이터 row {esgdata}개",
+            "message": f"총합— 보도자료 chunk {press}건 / 뉴스룸 chunk {newsroom}건 / 보고서 chunk {report}건 / 데이터 row {esgdata}건",
             "done": True,
             "counts": {"press": press, "newsroom": newsroom, "report": report, "esgdata": esgdata},
         })
@@ -170,3 +170,29 @@ async def send_message(conv_id: int, message: schemas.RagMessageRequest, db: Asy
         )
 
     return StreamingResponse(_stream(), media_type="text/event-stream")
+
+
+# ──────────────────────────────────────────────
+# ESG 보고서 자동 생성 (REPORT_GRAPH — Map-Reduce)
+# ──────────────────────────────────────────────
+@router.post("/report")
+async def generate_report(
+    data: schemas.ReportGenerateRequest,
+    _: User = Depends(get_current_user),
+):
+    """REPORT_GRAPH: plan → process_section(병렬) → synthesize.
+    
+    SSE 이벤트:
+      plan          — 섹션 목록 [{title, category}]
+      section_start — 섹션 처리 시작 {section_title, esg_category}
+      section_done  — 섹션 초안 완료 {section_title, esg_category, draft, sources}
+      synthesis     — 합성 시작 신호
+      text          — 최종 보고서 텍스트 청크 {chunk}
+      done          — 완료
+      error         — 오류 {message}
+    """
+    return StreamingResponse(
+        service.generate_esg_report(data.target_year, data.scope),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )

@@ -46,3 +46,9 @@ class RagConversationDetailResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ReportGenerateRequest(BaseModel):
+    target_year: str = "2025"
+    scope: str = "전체"   # "전체" | "I" | "E" | "S" | "G"
+

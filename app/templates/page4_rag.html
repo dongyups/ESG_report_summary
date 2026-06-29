@@ -19,6 +19,10 @@
                 <a href="/db" class="nav-link">Page3</a>
                 <span class="nav-separator">|</span>
                 <a href="/rag" class="nav-link active">Page4</a>
+                <span class="nav-separator">|</span>
+                <a href="/report-gen" class="nav-link">Page5</a>
+                <span class="nav-separator">|</span>
+                <a href="/section" class="nav-link">Page6</a>
             </nav>
         </div>
         <div class="header-right">
@@ -36,19 +40,19 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-title">MySQL → ChromaDB(bge-m3) → RAG<br/>extended thinking 기반 응답 생성</div>
-                <div class="model-name">LLM 모델: claude-sonnet-4-5-20250929</div> <!-- id="ragModelName" -->
+                <div class="sidebar-title">QA_GRAPH — 클로드 extended thinking<br/>MySQL → ChromaDB(bge-m3) → RAG</div>
+                <div class="model-name">LLM 모델: claude-sonnet-4-6</div>
                 <br>
 
                 <!-- 인덱싱 -->
                 <div class="index-section">
                     <div class="index-status" id="indexStatus">
-                        <span class="status-row">보도자료: <strong id="pressCount">-</strong>건</span>
-                        <span class="status-row">뉴스룸: <strong id="newsroomCount">-</strong>건</span>
-                        <span class="status-row">보고서 chunk: <strong id="reportCount">-</strong>개</span>
-                        <span class="status-row">데이터 row: <strong id="esgdataCount">-</strong>개</span>
+                        <span class="status-row">보도자료 chunk: <strong id="pressCount">-</strong>건</span>
+                        <span class="status-row">뉴스룸 chunk: <strong id="newsroomCount">-</strong>건</span>
+                        <span class="status-row">보고서 chunk: <strong id="reportCount">-</strong>건</span>
+                        <span class="status-row">데이터 row: <strong id="esgdataCount">-</strong>건</span>
                     </div>
-                    <button class="index-btn" id="indexBtn">⟳ ChromaDB 인덱싱 실행</button>
+                    <button class="index-btn" id="indexBtn">ChromaDB 인덱싱 ⟳</button>
                     <div class="index-progress" id="indexProgress" style="display:none;"></div>
                 </div>
                 <br>

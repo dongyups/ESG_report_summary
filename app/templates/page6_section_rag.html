@@ -1,0 +1,176 @@
+<!-- page6_section_rag.html — SECTION_GRAPH HITL 워크플로우 UI -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESG Summary - 섹션 작성 HITL</title>
+    <link rel="stylesheet" href="/static/css/page6_section_rag.css">
+</head>
+<body>
+
+    <!-- ── 헤더 ── -->
+    <header class="header">
+        <div class="header-left">
+            <img src="/static/esg_summ_logo.png" alt="ESG Summary Logo" class="logo">
+            <nav class="top-nav">
+                <a href="/chatbot" class="nav-link">Page1</a>
+                <span class="nav-separator">|</span>
+                <a href="/rawdb" class="nav-link">Page2</a>
+                <span class="nav-separator">|</span>
+                <a href="/db" class="nav-link">Page3</a>
+                <span class="nav-separator">|</span>
+                <a href="/rag" class="nav-link">Page4</a>
+                <span class="nav-separator">|</span>
+                <a href="/report-gen" class="nav-link">Page5</a>
+                <span class="nav-separator">|</span>
+                <a href="/section" class="nav-link active">Page6</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="user-info">
+                <div class="greeting">안녕하세요 ! <span id="userNameDisplay">ㅇㅇㅇ</span>님 !</div>
+                <div class="timer-wrapper">
+                    <span class="token-timer" id="tokenTimer">--:--:--</span>
+                    <button class="logout-btn" id="logoutBtn">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-container">
+
+        <!-- ── 사이드바 ── -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">SECTION_GRAPH — HITL<br/>검색 → 문서검토 → 초안생성 → 초안검토</div>
+                <div class="model-name">Main: sonnet-4-6 / Grade: haiku-4-5</div>
+                <br>
+
+                <!-- 섹션 작성 폼 -->
+                <div class="section-form">
+                    <div class="form-group">
+                        <label class="form-label">섹션 제목</label>
+                        <input type="text" class="form-input" id="sectionTitle"
+                               placeholder="예: 기후변화 대응 및 탄소중립">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label class="form-label">연도</label>
+                            <select class="form-select" id="targetYear">
+                                <option value="2025">2025</option>
+                                <!-- <option value="2024">2024</option> -->
+                                <!-- <option value="2023">2023</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group half">
+                            <label class="form-label">ESG 분류</label>
+                            <select class="form-select" id="esgCategory">
+                                <option value="">자동 감지</option>
+                                <option value="E">E — 환경</option>
+                                <option value="S">S — 사회</option>
+                                <option value="G">G — 지배구조</option>
+                                <option value="I">I — 도입/개요</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">작성 요청</label>
+                        <textarea class="form-textarea" id="userQuery" rows="3"
+                                  placeholder="예: 탄소중립 목표와 주요 이행 현황을 중심으로 작성해줘"></textarea>
+                    </div>
+                    <button class="start-btn" id="startBtn">
+                        <span>새로운 섹션 작성</span><span>🏁</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── 진행 중 ── -->
+            <div class="threads-section">
+                <div class="threads-title">진행 중</div>
+                <div class="threads-list" id="threadsList"></div>
+            </div>
+ 
+            <div class="sidebar-divider"></div>
+ 
+            <!-- ── 완료된 초안 (MySQL) ── -->
+            <div class="drafts-section">
+                <div class="drafts-title-row">
+                    <span class="drafts-title">완료된 초안</span>
+                    <button class="drafts-refresh-btn" id="refreshDraftsBtn" title="새로고침">⟳</button>
+                </div>
+                <div class="drafts-list" id="draftsList"></div>
+            </div>
+        </aside>
+
+        <!-- ── 메인 영역 ── -->
+        <main class="main-content">
+
+            <!-- 진행 상태 바 (5단계) -->
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-step" id="pStep1">
+                    <div class="step-circle">🔍</div>
+                    <div class="step-label">문서 검색</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep2">
+                    <div class="step-circle">📎</div>
+                    <div class="step-label">문서 검토</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep3">
+                    <div class="step-circle">✍️</div>
+                    <div class="step-label">초안 생성</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep4">
+                    <div class="step-circle">📄</div>
+                    <div class="step-label">초안 검토</div>
+                </div>
+                <div class="progress-arrow">→</div>
+                <div class="progress-step" id="pStep5">
+                    <div class="step-circle">✅</div>
+                    <div class="step-label">완료</div>
+                </div>
+            </div>
+
+            <!-- 스테이지 콘텐츠 -->
+            <div class="stage-scroll-area">
+                <div class="stage-container" id="stageContainer">
+                    <!-- 초기 안내 (JS에서 동적 교체) -->
+                    <div class="empty-state">
+                        <h2>섹션 작성 워크플로우</h2>
+                        <p>좌측 폼에서 섹션 정보를 입력하고 작성을 시작하세요</p>
+                        <p style="font-size:13px;margin-top:4px;">Human-in-the-Loop(HITL) 방식으로 각 단계를 직접 승인·수정합니다</p>
+                        <div class="flow-diagram">
+                            <div class="flow-step">🔍<br>문서 검색</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">👤<br>문서 검토</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">✍️<br>초안 생성</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">👤<br>초안 검토</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">✅<br>완료</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ── 로딩 오버레이 (API 호출 대기 중) ── -->
+    <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+        <div class="loading-box">
+            <div class="loading-spinner"></div>
+            <div class="loading-message" id="loadingMessage">처리 중...</div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+            crossorigin="anonymous"></script>
+    <script src="/static/js/page6_section_rag.js"></script>
+</body>
+</html>

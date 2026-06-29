@@ -243,10 +243,10 @@ body {
 .main-content {
     flex: 1;
     display: flex;
-    /* 입력창 위치 하단부 고정 및 스크롤 용도 */
-    height: 93.5vh;
     flex-direction: column;
     background-color: #fff;
+    /* 입력창 위치 하단부 고정 및 스크롤 용도 */
+    height: 93.5vh;
 }
 
 .chat-container {

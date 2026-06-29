@@ -8,7 +8,10 @@ from sqlalchemy.orm import Session
 from app.db.models.database import get_db
 from app.schemas.user import UserLogin, UserCreate, UserResponse, TokenResponse
 from app.modules.auth.service import AuthService
+from app.modules.auth.dependency import get_current_user
+from app.db.models.user import User
 from app.db.crud.user import create_user
+
 
 router = APIRouter()
 
@@ -61,27 +64,28 @@ async def register(
     return new_user
 
 
+### logout — user_id 파라미터 제거, 토큰에서 추출 ###
 @router.post("/logout")
-async def logout(user_id: str):
+async def logout(current_user: User = Depends(get_current_user)):
     """
     Logout endpoint
     Removes token from Redis
     """
-    await AuthService.logout(user_id)
+    await AuthService.logout(str(current_user.id))
     return {"message": "로그아웃되었습니다."}
 
 
-@router.get("/token-ttl/{user_id}")
-async def get_token_ttl(user_id: str):
+### token-ttl — 경로의 {user_id} 제거, 본인 토큰만 조회 ###
+@router.get("/token-ttl")
+async def get_token_ttl(current_user: User = Depends(get_current_user)):
     """
     Get remaining time for access token
     Returns TTL in seconds
     """
-    ttl = await AuthService.get_token_ttl(user_id)
+    ttl = await AuthService.get_token_ttl(str(current_user.id))
     if ttl < 0:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="토큰이 만료되었습니다."
         )
-    
     return {"ttl": ttl}

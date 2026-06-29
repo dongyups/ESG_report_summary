@@ -17,14 +17,6 @@ venv/
 # 이미지
 assets/*
 !assets/screenshots/
-assets/screenshots/*
-!assets/screenshots/로그인화면.jpeg
-!assets/screenshots/챗봇화면.jpeg
-!assets/screenshots/DB화면1.jpeg
-!assets/screenshots/DB화면2.jpeg
-!assets/screenshots/DB확인화면.jpeg
-!assets/screenshots/RAG화면1.jpeg
-
 
 # 데이터
 datasets/*
@@ -35,6 +27,7 @@ datasets/*
 !datasets/지속가능경영_보고서_2023.pdf
 !datasets/지속가능경영_보고서_2024.pdf
 !datasets/content_db.xlsx
+!datasets/section_checkpoints.db
 
 # 전처리
 preprocess/chromadb_구조_예시.txt

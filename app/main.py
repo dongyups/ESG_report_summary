@@ -15,6 +15,7 @@ from app.modules.auth.api import router as auth_router
 from app.modules.chat.api import router as chat_router
 from app.modules.db.api import router as db_router
 from app.modules.rag.api import router as rag_router
+from app.modules.rag.section_api import router as section_router
 
 # Define FastAPI with lifespan
 app = FastAPI(title="ESG Summary Platform", lifespan=lifespan)
@@ -30,6 +31,7 @@ app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(chat_router, prefix="/chat", tags=["chat"])
 app.include_router(db_router, prefix="/db", tags=["db"])
 app.include_router(rag_router, prefix="/rag",  tags=["rag"])
+app.include_router(section_router, prefix="/rag", tags=["rag-sections"])
 
 
 ### root_page ###
@@ -52,21 +54,33 @@ async def chatbot_page(request: Request):
 
 ### page2_rawdb ###
 @app.get("/rawdb", response_class=HTMLResponse)
-async def chatbot_page(request: Request):
+async def rawdb_page(request: Request):
     """MySQL RAW Database page"""
     return templates.TemplateResponse(request=request, name="page2_rawdb.html")
 
 ### page3_db ###
 @app.get("/db", response_class=HTMLResponse)
-async def chatbot_page(request: Request):
+async def db_page(request: Request):
     """MySQL Database page"""
     return templates.TemplateResponse(request=request, name="page3_db.html")
 
 ### page4_rag ###
 @app.get("/rag", response_class=HTMLResponse)
-async def chatbot_page(request: Request):
+async def rag_page(request: Request):
     """RAG(Retrieval-Augmented Generation) page"""
     return templates.TemplateResponse(request=request, name="page4_rag.html")
+
+### page5_report_rag ###
+@app.get("/report-gen", response_class=HTMLResponse)
+async def report_gen_page(request: Request):
+    """Report RAG Auto-generation (REPORT_GRAPH — Map-Reduce) page"""
+    return templates.TemplateResponse(request=request, name="page5_report_rag.html")
+
+### page6_section_rag ###
+@app.get("/section", response_class=HTMLResponse)
+async def section_rag_page(request: Request):
+    """Section RAG HITL (SECTION_GRAPH) page"""
+    return templates.TemplateResponse(request=request, name="page6_section_rag.html")
 
 
 if __name__ == "__main__":

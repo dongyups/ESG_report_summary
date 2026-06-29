@@ -1,5 +1,6 @@
 # 애플리케이션 전역 설정을 관리하는 파일 (환경변수, 설정값 등)
 
+import os
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import Optional
@@ -47,7 +48,11 @@ class Settings(BaseSettings):
     JWT_REFRESH_TOKEN_EXPIRE_DAYS: int
 
     # LLM, Web-search, RAG
-    ANTHROPIC_API_KEY: str
+    ### 개인 API키 ###
+    # ANTHROPIC_API_KEY: str
+    ### aws bedrock ###
+    BEDROCK_API_KEY: str
+    AWS_REGION: str
     TAVILY_API_KEY: str
     LLM_MODEL: str
     RAG_LLM_MODEL: str
@@ -57,6 +62,13 @@ class Settings(BaseSettings):
     @property # 객체처럼 사용하기 위함
     def CHROMA_PATH(self) -> str:
         return str(BASE_DIR / self.CHROMA_NAME)
+
+    # RAG - 섹션 작성(HITL) LangGraph 체크포인터 DB
+    # 기존 .env에 없는 환경에서도 깨지지 않도록 기본값을 둔다.
+    SECTION_CHECKPOINT_NAME: str = "datasets/section_checkpoints.db"
+    @property # 객체처럼 사용하기 위함
+    def SECTION_CHECKPOINT_PATH(self) -> str:
+        return str(BASE_DIR / self.SECTION_CHECKPOINT_NAME)
 
     # RAG - Ollama (로컬)
     OLLAMA_HOST: str
@@ -68,3 +80,4 @@ class Settings(BaseSettings):
 
 # 로드할 부분
 settings = Settings()
+os.environ["AWS_BEARER_TOKEN_BEDROCK"] = settings.BEDROCK_API_KEY
