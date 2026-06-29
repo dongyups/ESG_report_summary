@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     # Global
     model_config = SettingsConfigDict(
         env_file=(
-            BASE_DIR / ".env.development",
-            BASE_DIR / ".env.production",
+            BASE_DIR / "env/.env.development",
+            BASE_DIR / "env/.env.production",
         ),
         env_file_encoding="utf-8",
         # 파일이 없어도 에러를 내지 않고 다음 단계(시스템 환경 변수)로 넘어가게 합니다.
@@ -50,7 +50,7 @@ class Settings(BaseSettings):
     # LLM, Web-search, RAG
     ### 개인 API키 ###
     # ANTHROPIC_API_KEY: str
-    ### aws bedrock ###
+    ### AWS Bedrock ###
     BEDROCK_API_KEY: str
     AWS_REGION: str
     TAVILY_API_KEY: str
@@ -78,6 +78,8 @@ class Settings(BaseSettings):
         return f"http://{self.OLLAMA_HOST}:{self.OLLAMA_PORT}"    
     OLLAMA_EMBED_MODEL: str
 
+
 # 로드할 부분
 settings = Settings()
+Path(settings.SECTION_CHECKPOINT_PATH).parent.mkdir(parents=True, exist_ok=True)
 os.environ["AWS_BEARER_TOKEN_BEDROCK"] = settings.BEDROCK_API_KEY

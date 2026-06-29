@@ -46,6 +46,8 @@ services:
       - /home/ubuntu/env/.env.production
     ports:
       - "8000:8000"
+    volumes:
+      - ./datasets:/code/datasets
     depends_on:
       - mysql80
       - redis7alpine

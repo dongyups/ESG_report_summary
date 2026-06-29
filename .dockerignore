@@ -66,4 +66,5 @@ credentials.json
 # --- 엑스트라 ---
 assets/
 datasets/
+!datasets/section_checkpoints.db
 preprocess/
