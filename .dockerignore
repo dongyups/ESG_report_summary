@@ -67,4 +67,3 @@ credentials.json
 assets/
 datasets/
 preprocess/
-chroma_db/
