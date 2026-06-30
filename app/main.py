@@ -18,7 +18,13 @@ from app.modules.rag.api import router as rag_router
 from app.modules.rag.section_api import router as section_router
 
 # Define FastAPI with lifespan
-app = FastAPI(title="ESG Summary Platform", lifespan=lifespan)
+app = FastAPI(
+    title="ESG Summary Platform", 
+    lifespan=lifespan,
+    docs_url=None,      # /docs 비활성화
+    redoc_url=None,     # /redoc 비활성화
+    openapi_url=None    # /openapi.json 비활성화 (스키마 자체 차단)
+)
 
 # Static files and templates
 BASE_DIR = Path(__file__).resolve().parents[0] # ...\ESGsummary\app
