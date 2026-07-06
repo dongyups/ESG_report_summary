@@ -505,8 +505,8 @@ $(document).ready(function () {
             // navigator.clipboard.writeText(draft)
             //     .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 복사'), 1600); })
             //     .catch(() => alert('클립보드 복사 실패'));
-            copyText(draft) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
-            setTimeout(() => $btn.text('📋 복사'), 1600);
+            copyText(draft) ? $b.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $b.text('📋 복사'), 1600);
         });
     }
 
@@ -537,8 +537,8 @@ $(document).ready(function () {
             // navigator.clipboard.writeText(draft)
             //     .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 전체 복사'), 1600); })
             //     .catch(() => alert('클립보드 복사 실패'));
-            copyText(draft) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
-            setTimeout(() => $btn.text('📋 전체 복사'), 1600);
+            copyText(draft) ? $b.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $b.text('📋 전체 복사'), 1600);
         });
         $('#newSectionBtn').on('click', () => {
             currentThreadId = null;
