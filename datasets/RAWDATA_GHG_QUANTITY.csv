@@ -1,0 +1,289 @@
+slip_no,occur_ym,site_name,item_name,collected_qty,unit1,item_group
+DOC-2024-001,Jan-24,이천,도시가스 (LNG),"1,107,692.00",GJ,Scope 1
+DOC-2024-002,Feb-24,이천,도시가스 (LNG),"1,021,907.50",GJ,Scope 1
+DOC-2024-003,Mar-24,이천,도시가스 (LNG),"993,770.50",GJ,Scope 1
+DOC-2024-004,Apr-24,이천,도시가스 (LNG),"1,077,481.00",GJ,Scope 1
+DOC-2024-005,May-24,이천,도시가스 (LNG),"937,146.50",GJ,Scope 1
+DOC-2024-006,Jun-24,이천,도시가스 (LNG),"1,157,703.50",GJ,Scope 1
+DOC-2024-007,Jul-24,이천,도시가스 (LNG),"997,142.50",GJ,Scope 1
+DOC-2024-008,Aug-24,이천,도시가스 (LNG),"1,102,068.00",GJ,Scope 1
+DOC-2024-009,Sep-24,이천,도시가스 (LNG),"929,817.00",GJ,Scope 1
+DOC-2024-010,Oct-24,이천,도시가스 (LNG),"902,186.00",GJ,Scope 1
+DOC-2024-011,Nov-24,이천,도시가스 (LNG),"821,425.50",GJ,Scope 1
+DOC-2024-012,Dec-24,이천,도시가스 (LNG),"972,694.50",GJ,Scope 1
+DOC-2024-013,Jan-24,이천,휘발유/경유,756,GJ,Scope 1
+DOC-2024-014,Feb-24,이천,휘발유/경유,692,GJ,Scope 1
+DOC-2024-015,Mar-24,이천,휘발유/경유,647.5,GJ,Scope 1
+DOC-2024-016,Apr-24,이천,휘발유/경유,731,GJ,Scope 1
+DOC-2024-017,May-24,이천,휘발유/경유,592,GJ,Scope 1
+DOC-2024-018,Jun-24,이천,휘발유/경유,796,GJ,Scope 1
+DOC-2024-019,Jul-24,이천,휘발유/경유,670.5,GJ,Scope 1
+DOC-2024-020,Aug-24,이천,휘발유/경유,749,GJ,Scope 1
+DOC-2024-021,Sep-24,이천,휘발유/경유,602.5,GJ,Scope 1
+DOC-2024-022,Oct-24,이천,휘발유/경유,706,GJ,Scope 1
+DOC-2024-023,Nov-24,이천,휘발유/경유,742.5,GJ,Scope 1
+DOC-2024-024,Dec-24,이천,휘발유/경유,767,GJ,Scope 1
+DOC-2024-025,Jan-24,이천,공정가스 (SF6),"26,023.00",kg,Scope 1
+DOC-2024-026,Feb-24,이천,공정가스 (SF6),"24,884.00",kg,Scope 1
+DOC-2024-027,Mar-24,이천,공정가스 (SF6),"23,852.00",kg,Scope 1
+DOC-2024-028,Apr-24,이천,공정가스 (SF6),"26,038.00",kg,Scope 1
+DOC-2024-029,May-24,이천,공정가스 (SF6),"22,947.00",kg,Scope 1
+DOC-2024-030,Jun-24,이천,공정가스 (SF6),"27,153.00",kg,Scope 1
+DOC-2024-031,Jul-24,이천,공정가스 (SF6),"24,272.50",kg,Scope 1
+DOC-2024-032,Aug-24,이천,공정가스 (SF6),"25,830.00",kg,Scope 1
+DOC-2024-033,Sep-24,이천,공정가스 (SF6),"22,884.00",kg,Scope 1
+DOC-2024-034,Oct-24,이천,공정가스 (SF6),"25,199.00",kg,Scope 1
+DOC-2024-035,Nov-24,이천,공정가스 (SF6),"23,573.50",kg,Scope 1
+DOC-2024-036,Dec-24,이천,공정가스 (SF6),"26,404.50",kg,Scope 1
+DOC-2024-037,Jan-24,이천,HFCs (CHF3),"1,107.50",kg,Scope 1
+DOC-2024-038,Feb-24,이천,HFCs (CHF3),"1,099.00",kg,Scope 1
+DOC-2024-039,Mar-24,이천,HFCs (CHF3),"1,055.50",kg,Scope 1
+DOC-2024-040,Apr-24,이천,HFCs (CHF3),992,kg,Scope 1
+DOC-2024-041,May-24,이천,HFCs (CHF3),"1,086.50",kg,Scope 1
+DOC-2024-042,Jun-24,이천,HFCs (CHF3),"1,008.00",kg,Scope 1
+DOC-2024-043,Jul-24,이천,HFCs (CHF3),"1,102.50",kg,Scope 1
+DOC-2024-044,Aug-24,이천,HFCs (CHF3),"1,089.50",kg,Scope 1
+DOC-2024-045,Sep-24,이천,HFCs (CHF3),976,kg,Scope 1
+DOC-2024-046,Oct-24,이천,HFCs (CHF3),"1,070.50",kg,Scope 1
+DOC-2024-047,Nov-24,이천,HFCs (CHF3),"1,030.00",kg,Scope 1
+DOC-2024-048,Dec-24,이천,HFCs (CHF3),"1,108.50",kg,Scope 1
+DOC-2024-049,Jan-24,이천,전력,119.25,GWh,Scope 2
+DOC-2024-050,Feb-24,이천,전력,102.5,GWh,Scope 2
+DOC-2024-051,Mar-24,이천,전력,61.2,GWh,Scope 2
+DOC-2024-052,Apr-24,이천,전력,94.3,GWh,Scope 2
+DOC-2024-053,May-24,이천,전력,72.5,GWh,Scope 2
+DOC-2024-054,Jun-24,이천,전력,125.8,GWh,Scope 2
+DOC-2024-055,Jul-24,이천,전력,77.35,GWh,Scope 2
+DOC-2024-056,Aug-24,이천,전력,111.65,GWh,Scope 2
+DOC-2024-057,Sep-24,이천,전력,74.8,GWh,Scope 2
+DOC-2024-058,Oct-24,이천,전력,91.95,GWh,Scope 2
+DOC-2024-059,Nov-24,이천,전력,56,GWh,Scope 2
+DOC-2024-060,Dec-24,이천,전력,116.7,GWh,Scope 2
+DOC-2024-061,Jan-24,이천,스팀 (유연탄 (연료용)),"128,815.50",GJ,Scope 2
+DOC-2024-062,Feb-24,이천,스팀 (유연탄 (연료용)),"67,565.50",GJ,Scope 2
+DOC-2024-063,Mar-24,이천,스팀 (유연탄 (연료용)),"116,435.00",GJ,Scope 2
+DOC-2024-064,Apr-24,이천,스팀 (유연탄 (연료용)),"115,712.50",GJ,Scope 2
+DOC-2024-065,May-24,이천,스팀 (유연탄 (연료용)),"130,140.50",GJ,Scope 2
+DOC-2024-066,Jun-24,이천,스팀 (유연탄 (연료용)),"126,572.00",GJ,Scope 2
+DOC-2024-067,Jul-24,이천,스팀 (유연탄 (연료용)),"130,545.00",GJ,Scope 2
+DOC-2024-068,Aug-24,이천,스팀 (유연탄 (연료용)),"115,068.50",GJ,Scope 2
+DOC-2024-069,Sep-24,이천,스팀 (유연탄 (연료용)),"119,179.50",GJ,Scope 2
+DOC-2024-070,Oct-24,이천,스팀 (유연탄 (연료용)),"110,217.00",GJ,Scope 2
+DOC-2024-071,Nov-24,이천,스팀 (유연탄 (연료용)),"116,654.00",GJ,Scope 2
+DOC-2024-072,Dec-24,이천,스팀 (유연탄 (연료용)),"124,754.00",GJ,Scope 2
+DOC-2024-073,Jan-24,청주,도시가스 (LNG),"827,196.00",GJ,Scope 1
+DOC-2024-074,Feb-24,청주,도시가스 (LNG),"743,625.50",GJ,Scope 1
+DOC-2024-075,Mar-24,청주,도시가스 (LNG),"797,154.00",GJ,Scope 1
+DOC-2024-076,Apr-24,청주,도시가스 (LNG),"861,572.50",GJ,Scope 1
+DOC-2024-077,May-24,청주,도시가스 (LNG),"699,271.00",GJ,Scope 1
+DOC-2024-078,Jun-24,청주,도시가스 (LNG),"842,145.50",GJ,Scope 1
+DOC-2024-079,Jul-24,청주,도시가스 (LNG),"756,192.00",GJ,Scope 1
+DOC-2024-080,Aug-24,청주,도시가스 (LNG),"821,963.50",GJ,Scope 1
+DOC-2024-081,Sep-24,청주,도시가스 (LNG),"714,256.50",GJ,Scope 1
+DOC-2024-082,Oct-24,청주,도시가스 (LNG),"847,701.00",GJ,Scope 1
+DOC-2024-083,Nov-24,청주,도시가스 (LNG),"767,144.50",GJ,Scope 1
+DOC-2024-084,Dec-24,청주,도시가스 (LNG),"879,807.00",GJ,Scope 1
+DOC-2024-085,Jan-24,청주,휘발유/경유,562,GJ,Scope 1
+DOC-2024-086,Feb-24,청주,휘발유/경유,507.5,GJ,Scope 1
+DOC-2024-087,Mar-24,청주,휘발유/경유,549,GJ,Scope 1
+DOC-2024-088,Apr-24,청주,휘발유/경유,607,GJ,Scope 1
+DOC-2024-089,May-24,청주,휘발유/경유,871,GJ,Scope 1
+DOC-2024-090,Jun-24,청주,휘발유/경유,882.5,GJ,Scope 1
+DOC-2024-091,Jul-24,청주,휘발유/경유,767,GJ,Scope 1
+DOC-2024-092,Aug-24,청주,휘발유/경유,821,GJ,Scope 1
+DOC-2024-093,Sep-24,청주,휘발유/경유,737.5,GJ,Scope 1
+DOC-2024-094,Oct-24,청주,휘발유/경유,894.5,GJ,Scope 1
+DOC-2024-095,Nov-24,청주,휘발유/경유,876,GJ,Scope 1
+DOC-2024-096,Dec-24,청주,휘발유/경유,820.5,GJ,Scope 1
+DOC-2024-097,Jan-24,청주,공정가스 (SF6),"24,319.00",kg,Scope 1
+DOC-2024-098,Feb-24,청주,공정가스 (SF6),"22,802.00",kg,Scope 1
+DOC-2024-099,Mar-24,청주,공정가스 (SF6),"23,466.00",kg,Scope 1
+DOC-2024-100,Apr-24,청주,공정가스 (SF6),"24,883.50",kg,Scope 1
+DOC-2024-101,May-24,청주,공정가스 (SF6),"23,562.00",kg,Scope 1
+DOC-2024-102,Jun-24,청주,공정가스 (SF6),"24,371.50",kg,Scope 1
+DOC-2024-103,Jul-24,청주,공정가스 (SF6),"22,291.00",kg,Scope 1
+DOC-2024-104,Aug-24,청주,공정가스 (SF6),"24,055.50",kg,Scope 1
+DOC-2024-105,Sep-24,청주,공정가스 (SF6),"22,552.50",kg,Scope 1
+DOC-2024-106,Oct-24,청주,공정가스 (SF6),"24,856.50",kg,Scope 1
+DOC-2024-107,Nov-24,청주,공정가스 (SF6),"22,223.00",kg,Scope 1
+DOC-2024-108,Dec-24,청주,공정가스 (SF6),"26,570.00",kg,Scope 1
+DOC-2024-109,Jan-24,청주,HFCs (CHF3),"1,240.00",kg,Scope 1
+DOC-2024-110,Feb-24,청주,HFCs (CHF3),"1,275.50",kg,Scope 1
+DOC-2024-111,Mar-24,청주,HFCs (CHF3),"1,310.00",kg,Scope 1
+DOC-2024-112,Apr-24,청주,HFCs (CHF3),"1,157.50",kg,Scope 1
+DOC-2024-113,May-24,청주,HFCs (CHF3),"1,246.00",kg,Scope 1
+DOC-2024-114,Jun-24,청주,HFCs (CHF3),"1,173.50",kg,Scope 1
+DOC-2024-115,Jul-24,청주,HFCs (CHF3),"1,209.00",kg,Scope 1
+DOC-2024-116,Aug-24,청주,HFCs (CHF3),"1,281.50",kg,Scope 1
+DOC-2024-117,Sep-24,청주,HFCs (CHF3),"1,143.00",kg,Scope 1
+DOC-2024-118,Oct-24,청주,HFCs (CHF3),"1,237.00",kg,Scope 1
+DOC-2024-119,Nov-24,청주,HFCs (CHF3),"1,165.00",kg,Scope 1
+DOC-2024-120,Dec-24,청주,HFCs (CHF3),"1,157.50",kg,Scope 1
+DOC-2024-121,Jan-24,청주,전력,100.65,GWh,Scope 2
+DOC-2024-122,Feb-24,청주,전력,85.1,GWh,Scope 2
+DOC-2024-123,Mar-24,청주,전력,113.5,GWh,Scope 2
+DOC-2024-124,Apr-24,청주,전력,77.65,GWh,Scope 2
+DOC-2024-125,May-24,청주,전력,126.8,GWh,Scope 2
+DOC-2024-126,Jun-24,청주,전력,58.05,GWh,Scope 2
+DOC-2024-127,Jul-24,청주,전력,80.75,GWh,Scope 2
+DOC-2024-128,Aug-24,청주,전력,102.95,GWh,Scope 2
+DOC-2024-129,Sep-24,청주,전력,66.3,GWh,Scope 2
+DOC-2024-130,Oct-24,청주,전력,93.15,GWh,Scope 2
+DOC-2024-131,Nov-24,청주,전력,102.4,GWh,Scope 2
+DOC-2024-132,Dec-24,청주,전력,91.35,GWh,Scope 2
+DOC-2024-133,Jan-24,청주,스팀 (유연탄 (연료용)),"80,993.50",GJ,Scope 2
+DOC-2024-134,Feb-24,청주,스팀 (유연탄 (연료용)),"72,465.00",GJ,Scope 2
+DOC-2024-135,Mar-24,청주,스팀 (유연탄 (연료용)),"68,064.00",GJ,Scope 2
+DOC-2024-136,Apr-24,청주,스팀 (유연탄 (연료용)),"68,998.00",GJ,Scope 2
+DOC-2024-137,May-24,청주,스팀 (유연탄 (연료용)),"79,811.50",GJ,Scope 2
+DOC-2024-138,Jun-24,청주,스팀 (유연탄 (연료용)),"78,424.00",GJ,Scope 2
+DOC-2024-139,Jul-24,청주,스팀 (유연탄 (연료용)),"80,902.50",GJ,Scope 2
+DOC-2024-140,Aug-24,청주,스팀 (유연탄 (연료용)),"79,508.00",GJ,Scope 2
+DOC-2024-141,Sep-24,청주,스팀 (유연탄 (연료용)),"77,272.50",GJ,Scope 2
+DOC-2024-142,Oct-24,청주,스팀 (유연탄 (연료용)),"83,415.00",GJ,Scope 2
+DOC-2024-143,Nov-24,청주,스팀 (유연탄 (연료용)),"74,784.00",GJ,Scope 2
+DOC-2024-144,Dec-24,청주,스팀 (유연탄 (연료용)),"76,846.50",GJ,Scope 2
+DOC-2024-145,Jan-24,분당,도시가스 (LNG),"226,190.50",GJ,Scope 1
+DOC-2024-146,Feb-24,분당,도시가스 (LNG),"199,207.50",GJ,Scope 1
+DOC-2024-147,Mar-24,분당,도시가스 (LNG),"206,198.50",GJ,Scope 1
+DOC-2024-148,Apr-24,분당,도시가스 (LNG),"232,607.00",GJ,Scope 1
+DOC-2024-149,May-24,분당,도시가스 (LNG),"193,746.00",GJ,Scope 1
+DOC-2024-150,Jun-24,분당,도시가스 (LNG),"220,602.50",GJ,Scope 1
+DOC-2024-151,Jul-24,분당,도시가스 (LNG),"199,719.00",GJ,Scope 1
+DOC-2024-152,Aug-24,분당,도시가스 (LNG),"216,092.50",GJ,Scope 1
+DOC-2024-153,Sep-24,분당,도시가스 (LNG),"187,145.50",GJ,Scope 1
+DOC-2024-154,Oct-24,분당,도시가스 (LNG),"229,052.00",GJ,Scope 1
+DOC-2024-155,Nov-24,분당,도시가스 (LNG),"200,619.50",GJ,Scope 1
+DOC-2024-156,Dec-24,분당,도시가스 (LNG),"231,976.00",GJ,Scope 1
+DOC-2024-157,Jan-24,분당,휘발유/경유,77,GJ,Scope 1
+DOC-2024-158,Feb-24,분당,휘발유/경유,66,GJ,Scope 1
+DOC-2024-159,Mar-24,분당,휘발유/경유,70.5,GJ,Scope 1
+DOC-2024-160,Apr-24,분당,휘발유/경유,79.5,GJ,Scope 1
+DOC-2024-161,May-24,분당,휘발유/경유,60.5,GJ,Scope 1
+DOC-2024-162,Jun-24,분당,휘발유/경유,82,GJ,Scope 1
+DOC-2024-163,Jul-24,분당,휘발유/경유,69.5,GJ,Scope 1
+DOC-2024-164,Aug-24,분당,휘발유/경유,75.5,GJ,Scope 1
+DOC-2024-165,Sep-24,분당,휘발유/경유,59,GJ,Scope 1
+DOC-2024-166,Oct-24,분당,휘발유/경유,78,GJ,Scope 1
+DOC-2024-167,Nov-24,분당,휘발유/경유,67.5,GJ,Scope 1
+DOC-2024-168,Dec-24,분당,휘발유/경유,81,GJ,Scope 1
+DOC-2024-169,Jan-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-170,Feb-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-171,Mar-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-172,Apr-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-173,May-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-174,Jun-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-175,Jul-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-176,Aug-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-177,Sep-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-178,Oct-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-179,Nov-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-180,Dec-24,분당,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-181,Jan-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-182,Feb-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-183,Mar-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-184,Apr-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-185,May-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-186,Jun-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-187,Jul-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-188,Aug-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-189,Sep-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-190,Oct-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-191,Nov-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-192,Dec-24,분당,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-193,Jan-24,분당,전력,70.05,GWh,Scope 2
+DOC-2024-194,Feb-24,분당,전력,128.15,GWh,Scope 2
+DOC-2024-195,Mar-24,분당,전력,74.95,GWh,Scope 2
+DOC-2024-196,Apr-24,분당,전력,56.9,GWh,Scope 2
+DOC-2024-197,May-24,분당,전력,86.15,GWh,Scope 2
+DOC-2024-198,Jun-24,분당,전력,110.6,GWh,Scope 2
+DOC-2024-199,Jul-24,분당,전력,55.1,GWh,Scope 2
+DOC-2024-200,Aug-24,분당,전력,113.95,GWh,Scope 2
+DOC-2024-201,Sep-24,분당,전력,84,GWh,Scope 2
+DOC-2024-202,Oct-24,분당,전력,132,GWh,Scope 2
+DOC-2024-203,Nov-24,분당,전력,98.2,GWh,Scope 2
+DOC-2024-204,Dec-24,분당,전력,124.45,GWh,Scope 2
+DOC-2024-205,Jan-24,분당,스팀 (유연탄 (연료용)),"15,497.50",GJ,Scope 2
+DOC-2024-206,Feb-24,분당,스팀 (유연탄 (연료용)),"14,913.00",GJ,Scope 2
+DOC-2024-207,Mar-24,분당,스팀 (유연탄 (연료용)),"14,985.00",GJ,Scope 2
+DOC-2024-208,Apr-24,분당,스팀 (유연탄 (연료용)),"14,408.00",GJ,Scope 2
+DOC-2024-209,May-24,분당,스팀 (유연탄 (연료용)),"14,480.50",GJ,Scope 2
+DOC-2024-210,Jun-24,분당,스팀 (유연탄 (연료용)),"16,564.50",GJ,Scope 2
+DOC-2024-211,Jul-24,분당,스팀 (유연탄 (연료용)),"16,071.00",GJ,Scope 2
+DOC-2024-212,Aug-24,분당,스팀 (유연탄 (연료용)),"16,088.00",GJ,Scope 2
+DOC-2024-213,Sep-24,분당,스팀 (유연탄 (연료용)),"14,527.00",GJ,Scope 2
+DOC-2024-214,Oct-24,분당,스팀 (유연탄 (연료용)),"16,296.50",GJ,Scope 2
+DOC-2024-215,Nov-24,분당,스팀 (유연탄 (연료용)),"14,569.50",GJ,Scope 2
+DOC-2024-216,Dec-24,분당,스팀 (유연탄 (연료용)),"14,758.00",GJ,Scope 2
+DOC-2024-217,Jan-24,서울,도시가스 (LNG),"115,774.00",GJ,Scope 1
+DOC-2024-218,Feb-24,서울,도시가스 (LNG),"97,142.50",GJ,Scope 1
+DOC-2024-219,Mar-24,서울,도시가스 (LNG),"102,695.50",GJ,Scope 1
+DOC-2024-220,Apr-24,서울,도시가스 (LNG),"120,642.50",GJ,Scope 1
+DOC-2024-221,May-24,서울,도시가스 (LNG),"93,746.50",GJ,Scope 1
+DOC-2024-222,Jun-24,서울,도시가스 (LNG),"114,707.50",GJ,Scope 1
+DOC-2024-223,Jul-24,서울,도시가스 (LNG),"134,930.00",GJ,Scope 1
+DOC-2024-224,Aug-24,서울,도시가스 (LNG),"110,677.00",GJ,Scope 1
+DOC-2024-225,Sep-24,서울,도시가스 (LNG),"91,963.50",GJ,Scope 1
+DOC-2024-226,Oct-24,서울,도시가스 (LNG),"122,554.00",GJ,Scope 1
+DOC-2024-227,Nov-24,서울,도시가스 (LNG),"100,619.50",GJ,Scope 1
+DOC-2024-228,Dec-24,서울,도시가스 (LNG),"88,672.50",GJ,Scope 1
+DOC-2024-229,Jan-24,서울,휘발유/경유,62,GJ,Scope 1
+DOC-2024-230,Feb-24,서울,휘발유/경유,72.5,GJ,Scope 1
+DOC-2024-231,Mar-24,서울,휘발유/경유,56,GJ,Scope 1
+DOC-2024-232,Apr-24,서울,휘발유/경유,67,GJ,Scope 1
+DOC-2024-233,May-24,서울,휘발유/경유,49,GJ,Scope 1
+DOC-2024-234,Jun-24,서울,휘발유/경유,77,GJ,Scope 1
+DOC-2024-235,Jul-24,서울,휘발유/경유,57,GJ,Scope 1
+DOC-2024-236,Aug-24,서울,휘발유/경유,60.5,GJ,Scope 1
+DOC-2024-237,Sep-24,서울,휘발유/경유,81,GJ,Scope 1
+DOC-2024-238,Oct-24,서울,휘발유/경유,69,GJ,Scope 1
+DOC-2024-239,Nov-24,서울,휘발유/경유,57.5,GJ,Scope 1
+DOC-2024-240,Dec-24,서울,휘발유/경유,63.5,GJ,Scope 1
+DOC-2024-241,Jan-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-242,Feb-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-243,Mar-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-244,Apr-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-245,May-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-246,Jun-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-247,Jul-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-248,Aug-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-249,Sep-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-250,Oct-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-251,Nov-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-252,Dec-24,서울,공정가스 (SF6),0,kg,Scope 1
+DOC-2024-253,Jan-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-254,Feb-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-255,Mar-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-256,Apr-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-257,May-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-258,Jun-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-259,Jul-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-260,Aug-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-261,Sep-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-262,Oct-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-263,Nov-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-264,Dec-24,서울,HFCs (CHF3),0,kg,Scope 1
+DOC-2024-265,Jan-24,서울,전력,69.7,GWh,Scope 2
+DOC-2024-266,Feb-24,서울,전력,56.15,GWh,Scope 2
+DOC-2024-267,Mar-24,서울,전력,113.65,GWh,Scope 2
+DOC-2024-268,Apr-24,서울,전력,88.1,GWh,Scope 2
+DOC-2024-269,May-24,서울,전력,64.4,GWh,Scope 2
+DOC-2024-270,Jun-24,서울,전력,120.55,GWh,Scope 2
+DOC-2024-271,Jul-24,서울,전력,96.1,GWh,Scope 2
+DOC-2024-272,Aug-24,서울,전력,106.2,GWh,Scope 2
+DOC-2024-273,Sep-24,서울,전력,90.15,GWh,Scope 2
+DOC-2024-274,Oct-24,서울,전력,100.75,GWh,Scope 2
+DOC-2024-275,Nov-24,서울,전력,122.8,GWh,Scope 2
+DOC-2024-276,Dec-24,서울,전력,54.8,GWh,Scope 2
+DOC-2024-277,Jan-24,서울,스팀 (유연탄 (연료용)),"7,027.00",GJ,Scope 2
+DOC-2024-278,Feb-24,서울,스팀 (유연탄 (연료용)),"6,343.50",GJ,Scope 2
+DOC-2024-279,Mar-24,서울,스팀 (유연탄 (연료용)),"6,560.00",GJ,Scope 2
+DOC-2024-280,Apr-24,서울,스팀 (유연탄 (연료용)),"6,368.00",GJ,Scope 2
+DOC-2024-281,May-24,서울,스팀 (유연탄 (연료용)),"7,173.50",GJ,Scope 2
+DOC-2024-282,Jun-24,서울,스팀 (유연탄 (연료용)),"6,582.50",GJ,Scope 2
+DOC-2024-283,Jul-24,서울,스팀 (유연탄 (연료용)),"6,308.00",GJ,Scope 2
+DOC-2024-284,Aug-24,서울,스팀 (유연탄 (연료용)),"6,141.50",GJ,Scope 2
+DOC-2024-285,Sep-24,서울,스팀 (유연탄 (연료용)),"6,500.50",GJ,Scope 2
+DOC-2024-286,Oct-24,서울,스팀 (유연탄 (연료용)),"6,219.00",GJ,Scope 2
+DOC-2024-287,Nov-24,서울,스팀 (유연탄 (연료용)),"6,744.50",GJ,Scope 2
+DOC-2024-288,Dec-24,서울,스팀 (유연탄 (연료용)),"7,063.00",GJ,Scope 2

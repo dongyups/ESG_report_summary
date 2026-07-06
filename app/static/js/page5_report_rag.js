@@ -3,6 +3,7 @@ $(document).ready(function () {
     /* ──────────────────────────────────────
        1. 인증 / 타이머 (page4와 동일)
     ────────────────────────────────────── */
+    let timerInterval = null; // TDZ 방지
     $(document).ajaxError(function (e, xhr) {
         if (xhr.status === 401) { alert('세션이 만료되었습니다.'); logout(); }
     });
@@ -25,7 +26,7 @@ $(document).ready(function () {
     const expTime = getExp(token);
     if (!expTime) { alert('유효하지 않은 접근입니다.'); return logout(); }
 
-    let timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         const left = expTime - Date.now();
         if (left <= 0) { clearInterval(timerInterval); alert('세션 만료'); logout(); return; }
         const h = String(Math.floor(left / 3600000)).padStart(2, '0');
@@ -52,6 +53,23 @@ $(document).ready(function () {
         return String(s).replace(/[&<>"']/g, m => ({
             '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
         }[m]));
+    }
+
+    // 텍스트 복사 http미지원 에러: navigator.clipboard.writeText 대체
+    function copyText(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const success = document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        return success;
     }
 
     /* ──────────────────────────────────────
@@ -168,9 +186,11 @@ $(document).ready(function () {
                 const draft = s.draft || '';
                 $card.find('.copy-section-btn').on('click', function () {
                     const $btn = $(this);
-                    navigator.clipboard.writeText(draft).then(() => {
-                        $btn.text('✅ 복사됨'); setTimeout(() => $btn.text('📋 복사'), 1500);
-                    });
+                    // navigator.clipboard.writeText(draft).then(() => {
+                    //     $btn.text('✅ 복사됨'); setTimeout(() => $btn.text('📋 복사'), 1500);
+                    // });
+                    copyText(draft) ? $btn.text('✅ 복사됨') : $btn.text('❌ 복사 실패');
+                    setTimeout(() => $btn.text('📋 복사'), 1500);
                 });
             } else if (s.status === 'processing') {
                 $card.removeClass('pending').addClass('processing');
@@ -190,9 +210,11 @@ $(document).ready(function () {
                 $('#synthesisBadge').text('✅ 합성 완료').addClass('done');
                 $('#copyReportBtn').prop('disabled', false).on('click', function () {
                     const $btn = $(this);
-                    navigator.clipboard.writeText(finalReportText).then(() => {
-                        $btn.text('✅ 복사됨'); setTimeout(() => $btn.text('📋 전체 복사'), 1600);
-                    });
+                    // navigator.clipboard.writeText(finalReportText).then(() => {
+                    //     $btn.text('✅ 복사됨'); setTimeout(() => $btn.text('📋 전체 복사'), 1600);
+                    // });
+                    copyText(finalReportText) ? $btn.text('✅ 복사됨') : $btn.text('❌ 복사 실패');
+                    setTimeout(() => $btn.text('📋 전체 복사'), 1600);
                 });
             }
         }
@@ -392,12 +414,14 @@ $(document).ready(function () {
         const draft = data.draft || '';
         $card.find('.copy-section-btn').off('click').on('click', function () {
             const $btn = $(this);
-            navigator.clipboard.writeText(draft)
-                .then(() => {
-                    $btn.text('✅ 복사됨');
-                    setTimeout(() => $btn.text('📋 복사'), 1500);
-                })
-                .catch(() => alert('클립보드 복사 실패'));
+            // navigator.clipboard.writeText(draft)
+            //     .then(() => {
+            //         $btn.text('✅ 복사됨');
+            //         setTimeout(() => $btn.text('📋 복사'), 1500);
+            //     })
+            //     .catch(() => alert('클립보드 복사 실패'));
+            copyText(draft) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $btn.text('📋 복사'), 1500);
         });
 
         // 소스 패널 삽입
@@ -461,12 +485,14 @@ $(document).ready(function () {
         // 복사 버튼 이벤트
         $('#copyReportBtn').off('click').on('click', function () {
             const $btn = $(this);
-            navigator.clipboard.writeText(finalReportText)
-                .then(() => {
-                    $btn.text('✅ 복사됨');
-                    setTimeout(() => $btn.text('📋 전체 복사'), 1600);
-                })
-                .catch(() => alert('클립보드 복사 실패'));
+            // navigator.clipboard.writeText(finalReportText)
+            //     .then(() => {
+            //         $btn.text('✅ 복사됨');
+            //         setTimeout(() => $btn.text('📋 전체 복사'), 1600);
+            //     })
+            //     .catch(() => alert('클립보드 복사 실패'));
+            copyText(finalReportText) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $btn.text('📋 전체 복사'), 1600);
         });
 
         // 생성된 결과물 화면저장

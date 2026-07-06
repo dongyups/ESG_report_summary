@@ -13,6 +13,7 @@ import time
 from app.db.models.database import lifespan
 from app.modules.auth.api import router as auth_router
 from app.modules.chat.api import router as chat_router
+from app.modules.db.api_rawdb import router as rawdb_router
 from app.modules.db.api import router as db_router
 from app.modules.rag.api import router as rag_router
 from app.modules.rag.section_api import router as section_router
@@ -35,6 +36,7 @@ templates.env.globals["static_ver"] = int(time.time()) ### css/js 파일 수정 
 # Include routers
 app.include_router(auth_router, prefix="/auth", tags=["auth"])
 app.include_router(chat_router, prefix="/chat", tags=["chat"])
+app.include_router(rawdb_router, prefix="/rawdb", tags=["rawdb"])
 app.include_router(db_router, prefix="/db", tags=["db"])
 app.include_router(rag_router, prefix="/rag",  tags=["rag"])
 app.include_router(section_router, prefix="/rag", tags=["rag-sections"])
@@ -90,4 +92,4 @@ async def section_rag_page(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="127.0.0.1", port=9000, reload=True) # --port 번호가 중복되는 경우 원하는 번호로 수정
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True) # --port 번호가 중복되는 경우 원하는 번호로 수정

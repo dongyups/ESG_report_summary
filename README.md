@@ -38,7 +38,9 @@ JWT_SECRET_KEY=dfkjgwkelk35klvnwe2340flkdsCCTVl1244cfncnsdr3123lfncdlk124sksks
 JWT_ALGORITHM=HS256
 
 # Claude API 또는 AWS Bearer Token Bedrock (택1)
+# 개인 Claude API
 ANTHROPIC_API_KEY=<본인의_클로드_API키>
+# 조직 AWS Bearer Token Bedrock API
 BEDROCK_API_KEY=<조직의_클로드_API키>
 AWS_REGION=us-east-1
 
@@ -183,10 +185,23 @@ Username: root
 </p>
 
 
-**2026-##-##**
-- ... (upcoming)
+**2026-07-05**
+- docker-compose 헬스체크 로직 적용
+- page2 raw 데이터 관리 및 시각화 페이지를 위한 전처리 진행 `preprocess/data_prep_csv.py`, 다음과 같은 더미 데이터에서 csv만 추출하여 진행: `RAWDATA_ERP.csv` & `RAWDATA_GHG.xlsx`
+- `app/static/js/` 전체 redis 토큰 만료 타이머 오류 수정
+- `retriever.py` QA및 RAG에서 검색시 threshold 수치 및 검색 개수 변경
+- http미지원 에러로 텍스트가 복사되지 않는 문제 수정: navigator.clipboard.writeText 형식을 임의의 function copyText(text) 형식으로 대체
+- raw 데이터 엑셀파일 csv 변환 및 수식을 SQL 로직으로 변경하여 적용 및 html 화면에 로직 toggle박스로 출력
+- 일반적인 대시보드 구축 대신 간단하게 버튼을 눌러 현재 html화면에 나타나 있는 데이터를 오버레이로 시각화된 그래프 출력
+- 시각화시 LLM을 통한 이미지 생성이 아닌, 그래프 생성을 위한 json 파일 생성이며 이후 생성된 json 파일을 기반으로 Chart.js를 활용하여 시각화 진행, PNG파일 로컬 다운로드 가능
+- 구체적인 모든 기능은 `app/modules/db/api_rawdb.py` 파일 참조
 <p align="left">
-  <img src="assets/screenshots/RAWDB화면.jpeg" width="49%"/>
+  <img src="assets/screenshots/RAWDB화면1-1.jpeg" width="49%"/>
+  <img src="assets/screenshots/RAWDB화면1-2.jpeg" width="49%"/>
+</p>
+<p align="left">
+  <img src="assets/screenshots/RAWDB화면2-1.jpeg" width="49%"/>
+  <img src="assets/screenshots/RAWDB화면2-2.jpeg" width="49%"/>
 </p>
 
 </br>

@@ -95,20 +95,20 @@ COLLECTION_NAMES: Dict[str, str] = {
 
 COLLECTION_PROFILES: Dict[str, Dict[str, Dict[str, float]]] = {
     "press": {
-        "qa":         {"n": 3, "threshold": 0.49},
-        "report_gen": {"n": 4, "threshold": 0.44},
+        "qa":         {"n": 3, "threshold": 0.41},
+        "report_gen": {"n": 4, "threshold": 0.40},
     },
     "newsroom": {
-        "qa":         {"n": 5, "threshold": 0.49},
-        "report_gen": {"n": 8, "threshold": 0.44},
+        "qa":         {"n": 5, "threshold": 0.41},
+        "report_gen": {"n": 8, "threshold": 0.40},
     },
     "report": {
-        "qa":         {"n": 8, "threshold": 0.50},
-        "report_gen": {"n": 10, "threshold": 0.45},
+        "qa":         {"n": 8, "threshold": 0.41},
+        "report_gen": {"n": 10, "threshold": 0.40},
     },
     "esg_data": {
-        "qa":         {"n": 12, "threshold": 0.55},
-        "report_gen": {"n": 16, "threshold": 0.50},
+        "qa":         {"n": 12, "threshold": 0.46},
+        "report_gen": {"n": 16, "threshold": 0.45},
     },
 }
 

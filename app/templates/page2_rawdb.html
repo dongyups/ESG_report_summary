@@ -1,4 +1,4 @@
-<!-- page3_rag.html -->
+<!-- page2_rawdb.html -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -39,19 +39,145 @@
 
     <div class="app-container">
         <aside class="sidebar">
-            <div class="sidebar-content">
-                사이드 바 내용을 채워주세요.
+            <div class="sidebar-header">
+                <div class="sidebar-title">전체 RAW 데이터 목록<br>ERP RawData 뷰어</div>
+            </div>
+
+            <div class="sidebar-scroll">
+
+                <!-- AI 그래프 생성 (구 대시보드 스냅샷 대체) -->
+                <div class="chart-gen-wrap">
+                    <div class="chart-gen-box">
+                        <div class="chart-gen-title"><span>📈</span> AI 그래프 생성</div>
+                        <div class="chart-gen-desc">현재 화면에 표시된 <b id="cgRawLabel">RAW1</b> 데이터를 AI가 분석해 ESG 보고서용 그래프를 생성합니다.</div>
+                        <div class="chart-gen-meta">
+                            <span class="cg-chip">사업장 <b id="cgSite">전사</b></span>
+                            <span class="cg-chip">기간 <b id="cgPeriod">전체</b></span>
+                            <span class="cg-chip">행 <b id="cgRows">0</b></span>
+                        </div>
+                        <button class="chart-gen-btn" id="genChartBtn">
+                            <span class="cg-btn-ico">✨</span> 그래프 생성
+                        </button>
+                    </div>
+                </div>
+
+                <!-- RAW 유형 -->
+                <div class="section-label" style="margin-top:12px">RAW 데이터 유형</div>
+                <div class="raw-menu-item" data-raw="RAW1"><span class="raw-badge">RAW 1</span><span class="raw-menu-label">온실가스 (Scope 1 &amp; 2)</span></div>
+                <div class="raw-menu-item" data-raw="RAW2"><span class="raw-badge">RAW 2</span><span class="raw-menu-label">전력 사용량</span></div>
+                <div class="raw-menu-item" data-raw="RAW3"><span class="raw-badge">RAW 3</span><span class="raw-menu-label">스팀 사용량</span></div>
+                <div class="raw-menu-item" data-raw="RAW4"><span class="raw-badge">RAW 4</span><span class="raw-menu-label">폐기물 배출</span></div>
+                <div class="raw-menu-item" data-raw="RAW5"><span class="raw-badge">RAW 5</span><span class="raw-menu-label">용수 / 수자원</span></div>
+                <div class="raw-menu-item" data-raw="RAW6"><span class="raw-badge">RAW 6</span><span class="raw-menu-label">폐수 및 수질</span></div>
+
+                <!-- 사업장 필터 -->
+                <div class="section-label" style="margin-top:12px">사업장 필터</div>
+                <div class="site-filter-wrap">
+                    <select class="site-select" id="siteSelect">
+                    <option value="전사">전사 (전체)</option>
+                    <option value="이천">이천</option>
+                    <option value="청주">청주</option>
+                    <option value="서울">서울</option>
+                    <option value="분당">분당</option>
+                    </select>
+                </div>
+
+                <!-- 기간 필터 -->
+                <div class="section-label" style="margin-top:12px">기간 필터</div>
+                <div class="date-filter-wrap">
+                    <select class="year-select" id="yearSelect">
+                    <option value="2024">2024년</option>
+                    </select>
+                    <div class="month-range-wrap" id="monthRangeWrap">
+                    <div class="month-quarter-row">
+                        <div class="month-cell range-start" data-month="1">1월</div>
+                        <div class="month-cell range-in"    data-month="2">2월</div>
+                        <div class="month-cell range-in"    data-month="3">3월</div>
+                    </div>
+                    <div class="month-quarter-row">
+                        <div class="month-cell range-in" data-month="4">4월</div>
+                        <div class="month-cell range-in" data-month="5">5월</div>
+                        <div class="month-cell range-in" data-month="6">6월</div>
+                    </div>
+                    <div class="month-quarter-row">
+                        <div class="month-cell range-in" data-month="7">7월</div>
+                        <div class="month-cell range-in" data-month="8">8월</div>
+                        <div class="month-cell range-in" data-month="9">9월</div>
+                    </div>
+                    <div class="month-quarter-row">
+                        <div class="month-cell range-in"  data-month="10">10월</div>
+                        <div class="month-cell range-in"  data-month="11">11월</div>
+                        <div class="month-cell range-end" data-month="12">12월</div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </aside>
 
+        <!-- MAIN -->
         <main class="main-content">
-            <div class="content-placeholder">
-                내용을 채워주세요. (Page 2)
+            <div class="content-header">
+                <div class="content-title">데이터 정렬</div>
+                <!-- <div class="content-subtitle" id="contentSubtitle">RAW 데이터</div> -->
+            </div>
+            <div class="table-info" id="tableInfo">
+                <div class="table-info-text">
+                    <strong id="currentRawLabel">RAW1</strong> 테이블
+                    | 총 <strong id="rowCount">0</strong>개 행
+                    | <strong id="columnCount">0</strong>개 열
+                    | 사업장: <strong id="currentSiteLabel">전사</strong>
+                    | 기간: <strong id="currentMonthLabel">전체</strong>
+                </div>
+            </div>
+
+            <!-- 실행 SQL 쿼리 패널 -->
+            <div class="sql-panel" id="sqlPanel">
+                <div class="sql-panel-head" id="sqlToggle">
+                    <span class="sql-caret">▸</span>
+                    <span class="sql-title">실행 SQL 쿼리</span>
+                    <span class="sql-source" id="sqlSource">rawdata_</span>
+                    <button class="sql-copy" id="sqlCopy">복사</button>
+                </div>
+                <pre class="sql-code" id="sqlCode"><code></code></pre>
+            </div>
+
+            <div class="table-container" id="tableContainer">
+                <div class="loading"><div class="loading-spinner"></div>데이터 로딩 중...</div>
             </div>
         </main>
     </div>
+    <!-- ===== AI 그래프 미리보기 모달 ===== -->
+    <div class="chart-modal-overlay" id="chartModalOverlay">
+        <div class="chart-modal">
+            <div class="chart-modal-head">
+                <div class="chart-modal-title" id="chartModalTitle">AI 그래프 이미지 생성</div>
+                <button class="chart-modal-x" id="chartModalX" aria-label="닫기">&times;</button>
+            </div>
+            <div class="chart-modal-body">
+                <div class="chart-modal-loading" id="chartModalLoading">
+                    <div class="loading-spinner"></div>
+                    <span>AI가 현재 데이터를 분석해 그래프를 구성하는 중입니다…</span>
+                </div>
+                <div class="chart-modal-error" id="chartModalError"></div>
+                <div class="chart-canvas-wrap" id="chartCanvasWrap">
+                    <canvas id="esgChartCanvas"></canvas>
+                </div>
+                <div class="chart-insight" id="chartInsight"></div>
+            </div>
+            <div class="chart-modal-foot">
+                <div class="chart-modal-meta" id="chartModalMeta"></div>
+                <div class="chart-modal-actions">
+                    <button class="cm-btn cm-save" id="chartSaveBtn" disabled>🖼️ 이미지 저장</button>
+                    <button class="cm-btn cm-close" id="chartCloseBtn">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <!-- chart.js (AI 그래프 렌더링) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <script src="/static/js/page2_rawdb.js"></script>
 </body>
 </html>

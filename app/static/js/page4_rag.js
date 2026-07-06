@@ -3,6 +3,7 @@ $(document).ready(function () {
     /* ──────────────────────────────────────
        1. 인증 / 타이머
     ────────────────────────────────────── */
+    let timerInterval = null; // TDZ 방지
     $(document).ajaxError(function (e, xhr) {
         if (xhr.status === 401) { alert('세션이 만료되었습니다.'); logout(); }
     });
@@ -16,15 +17,16 @@ $(document).ready(function () {
     function getExp(t) {
         try {
             const b = t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-            return JSON.parse(decodeURIComponent(atob(b).split('').map(c =>
-                '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''))).exp * 1000;
+            return JSON.parse(decodeURIComponent(
+                atob(b).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('')
+            )).exp * 1000;
         } catch { return null; }
     }
 
     const expTime = getExp(token);
     if (!expTime) { alert('유효하지 않은 접근입니다.'); return logout(); }
 
-    let timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         const left = expTime - Date.now();
         if (left <= 0) { clearInterval(timerInterval); alert('세션 만료'); logout(); return; }
         const h = String(Math.floor(left / 3600000)).padStart(2, '0');

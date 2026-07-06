@@ -28,6 +28,10 @@ datasets/*
 !datasets/지속가능경영_보고서_2024.pdf
 !datasets/content_db.xlsx
 !datasets/section_checkpoints.db
+!datasets/RAWDATA_ERP.csv
+!datasets/RAWDATA_GHG.xlsx
+!datasets/RAWDATA_GHG_FORMULA.csv
+!datasets/RAWDATA_GHG_QUANTITY.csv
 
 # 전처리
 preprocess/chromadb_구조_예시.txt

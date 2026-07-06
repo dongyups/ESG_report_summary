@@ -17,6 +17,13 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    # MySQL이 완전히 켜졌는지 확인하는 헬스체크 로직
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s # 처음 컨테이너 생성 시 초기화 시간을 벌어줌
 
   redis7alpine:
     image: redis:7-alpine
@@ -25,6 +32,12 @@ services:
     networks:
       - esg_local_net
     restart: always
+    # Redis 헬스체크 로직 (선택 사항이지만 권장)
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   ollama:
     image: ollama/ollama
@@ -49,10 +62,14 @@ services:
     volumes:
       - ./datasets:/code/datasets
       - ./chroma_db:/code/chroma_db
+    # DB와 Redis가 'healthy' 상태가 될 때까지 대기
     depends_on:
-      - mysql80
-      - redis7alpine
-      - ollama
+      mysql80:
+        condition: service_healthy
+      redis7alpine:
+        condition: service_healthy
+      ollama:
+        condition: service_started # ollama는 헬스체크 없이 켜지면 바로 진행
     restart: always
     networks:
       - esg_local_net

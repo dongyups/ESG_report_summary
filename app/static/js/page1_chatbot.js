@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let timerInterval = null; // TDZ 방지
     // 1. 전역 Ajax 에러 핸들러
     // 페이지 내 어떤 Ajax 호출이라도 서버에서 401(Unauthorized)을 반환하면 즉시 로그아웃 시킵니다.
     $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
@@ -43,7 +44,7 @@ $(document).ready(function() {
     }
 
     // 4. 실시간 타이머 업데이트
-    let timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         const now = Date.now();
         const timeLeft = tokenEndTime - now;
 

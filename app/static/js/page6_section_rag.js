@@ -3,6 +3,7 @@ $(document).ready(function () {
     /* ──────────────────────────────────────
        1. 인증 / 토큰 타이머
     ────────────────────────────────────── */
+    let timerInterval = null; // TDZ 방지
     $(document).ajaxError(function (e, xhr) {
         if (xhr.status === 401) { alert('세션이 만료되었습니다.'); logout(); }
     });
@@ -25,7 +26,7 @@ $(document).ready(function () {
     const expTime = getExp(token);
     if (!expTime) { alert('유효하지 않은 접근입니다.'); return logout(); }
 
-    let timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         const left = expTime - Date.now();
         if (left <= 0) { clearInterval(timerInterval); alert('세션 만료'); logout(); return; }
         const h = String(Math.floor(left / 3600000)).padStart(2, '0');
@@ -58,6 +59,23 @@ $(document).ready(function () {
         if (!isoStr) return '';
         const d = new Date(isoStr);
         return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    // 텍스트 복사 http미지원 에러: navigator.clipboard.writeText 대체
+    function copyText(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const success = document.execCommand("copy");
+        document.body.removeChild(textarea);
+
+        return success;
     }
 
     /* ──────────────────────────────────────
@@ -459,7 +477,7 @@ $(document).ready(function () {
                 <div class="action-group-label">✏️ 수정 요청 — 지시에 따라 초안 재작성</div>
                 <div class="action-input-col">
                     <textarea class="action-textarea" id="editInstructionInput" rows="3"
-                              placeholder="예: 3번째 문단에 수자원 관리 내용 추가해줘"></textarea>
+                              placeholder="예: 3번째 문단에 ㅇㅇ내용을 2번째 문단과 병합해줘 (추가 검색 기능 X)"></textarea>
                     <button class="action-edit-btn" id="editDraftBtn">수정 요청</button>
                 </div>
             </div>
@@ -484,9 +502,11 @@ $(document).ready(function () {
         $('#searchKeywordInput').on('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); $('#searchDraftBtn').trigger('click'); } });
         $('#draftCopyBtn').on('click', function () {
             const $b = $(this);
-            navigator.clipboard.writeText(draft)
-                .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 복사'), 1600); })
-                .catch(() => alert('클립보드 복사 실패'));
+            // navigator.clipboard.writeText(draft)
+            //     .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 복사'), 1600); })
+            //     .catch(() => alert('클립보드 복사 실패'));
+            copyText(draft) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $btn.text('📋 복사'), 1600);
         });
     }
 
@@ -514,9 +534,11 @@ $(document).ready(function () {
         if (sources.length) $panel.append(buildSourcesPanel(sources, false));
         $('#finalCopyBtn').on('click', function () {
             const $b = $(this);
-            navigator.clipboard.writeText(draft)
-                .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 전체 복사'), 1600); })
-                .catch(() => alert('클립보드 복사 실패'));
+            // navigator.clipboard.writeText(draft)
+            //     .then(() => { $b.text('✅ 복사됨'); setTimeout(() => $b.text('📋 전체 복사'), 1600); })
+            //     .catch(() => alert('클립보드 복사 실패'));
+            copyText(draft) ? $btn.text('✅ 복사됨') : alert('클립보드 복사 실패');
+            setTimeout(() => $btn.text('📋 전체 복사'), 1600);
         });
         $('#newSectionBtn').on('click', () => {
             currentThreadId = null;
