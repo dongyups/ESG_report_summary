@@ -242,7 +242,7 @@ RAW_HINT: dict = {
 def _build_chart_prompt(req: ChartRequest) -> str:
     sample = json.dumps(req.rows[:30], ensure_ascii=False, default=str)
     hint = RAW_HINT.get(req.raw_type, "")
-    return f"""당신은 ESG 데이터 시각화 전문가입니다.
+    return f"""ESG 데이터를 시각화 하는 작업이다.
 아래는 ESG 대시보드에서 사용자가 현재 보고 있는 '{req.raw_type}' 데이터입니다.
 이 데이터를 ESG 보고서에 넣을 그래프 1개로 요약하려 합니다.
 어떤 그래프가 가장 적절한지 '구조'만 결정하세요. (실제 수치 집계는 프런트엔드가 수행합니다.)

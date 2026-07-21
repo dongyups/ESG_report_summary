@@ -201,6 +201,8 @@ def build_qa_graph():
 
 
 QA_GRAPH = build_qa_graph()
+# with open("./assets/GRAPH_QA.png", "wb") as f:
+#     f.write(QA_GRAPH.get_graph().draw_mermaid_png())
 
 
 # ════════════════════════════════════════════════════════════
@@ -532,6 +534,8 @@ def build_report_graph():
 
 
 REPORT_GRAPH = build_report_graph()
+# with open("./assets/GRAPH_REPORT.png", "wb") as f:
+#     f.write(REPORT_GRAPH.get_graph().draw_mermaid_png())
 
 
 # ════════════════════════════════════════════════════════════

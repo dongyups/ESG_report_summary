@@ -42,6 +42,8 @@ async def section_lifespan(app):
     async with AsyncSqliteSaver.from_conn_string(settings.SECTION_CHECKPOINT_PATH) as saver:
         await saver.setup()  # 체크포인트 테이블이 없으면 생성. 이미 있으면 안전하게 no-op.
         section_graph = build_section_graph(saver)
+        # with open("./assets/GRAPH_SECTION.png", "wb") as f:
+        #     f.write(section_graph.get_graph().draw_mermaid_png())
         yield {"section_graph": section_graph}
 
 

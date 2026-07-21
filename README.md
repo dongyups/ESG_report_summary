@@ -2,6 +2,10 @@
 ESG 보고서 작성을 위한 데이터 관리 및 RAG를 활용한 LLM 결과물 도출 작업을 수행하는 웹 서비스\
 목표 회사는 SK하이닉스(https://sustainability.skhynix.com/datacenter?section=sustainReport)이며 2025년 보고서를 정답 데이터로 가정하여 진행
 
+### 시연영상
+[![Video Label](http://img.youtube.com/vi/pESg_nJDVQE/0.jpg)](https://youtu.be/pESg_nJDVQE)
+[![Video Label](http://img.youtube.com/vi/U-cFHq48R-k/0.jpg)](https://youtu.be/U-cFHq48R-k)
+
 ### 프론트 구성
 0. 로그인
 1. 간단한 챗봇 claude tavily online search

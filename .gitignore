@@ -16,6 +16,7 @@ venv/
 
 # 이미지
 assets/*
+assets/screenshots/Screenshots/
 !assets/screenshots/
 
 # 데이터
