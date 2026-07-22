@@ -18,6 +18,7 @@ venv/
 assets/*
 assets/screenshots/Screenshots/
 !assets/screenshots/
+!assets/ppt*.png
 
 # 데이터
 datasets/*
