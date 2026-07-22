@@ -1,5 +1,5 @@
-## ESG 보고서 요약 자동화 시스템 개발 프로젝트
-ESG 보고서 작성을 위한 데이터 관리 및 RAG를 활용한 LLM 결과물 도출 작업을 수행하는 웹 서비스\
+## ESG 보고서 초안 작성 자동화 시스템 개발 프로젝트
+ESG 보고서 초안 작성을 위한 MySQL 데이터 관리 및 RAG를 활용한 LLM 결과물 도출 작업을 수행하는 FastAPI기반 서비스\
 목표 회사는 SK하이닉스(https://sustainability.skhynix.com/datacenter?section=sustainReport)이며 2025년 보고서를 정답 데이터로 가정하여 진행
 
 ### 유투브 시연영상 (각각 약3분30초)
